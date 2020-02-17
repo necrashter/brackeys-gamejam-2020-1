@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TexturesCom_Grass0110_1_seamless_S.jpg-1aac6eeecd7d206e0506c525c1f5043e.stex"
+path="res://.import/TexturesCom_Ground_Soil3_3x3_1K_albedo.jpg-28b46bf0db9fa2df5497c38d100cb3c4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/tiles/TexturesCom_Grass0110_1_seamless_S.jpg"
-dest_files=[ "res://.import/TexturesCom_Grass0110_1_seamless_S.jpg-1aac6eeecd7d206e0506c525c1f5043e.stex" ]
+source_file="res://gfx/tiles/TexturesCom_Ground_Soil3_3x3_1K_albedo.jpg"
+dest_files=[ "res://.import/TexturesCom_Ground_Soil3_3x3_1K_albedo.jpg-28b46bf0db9fa2df5497c38d100cb3c4.stex" ]
 
 [params]
 

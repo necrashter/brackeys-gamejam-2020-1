@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TexturesCom_Grass0110_1_seamless_S.jpg-1aac6eeecd7d206e0506c525c1f5043e.stex"
+path="res://.import/128rockdar.jpg-76a453747e74a9b72fcfc2ec95668ee6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/tiles/TexturesCom_Grass0110_1_seamless_S.jpg"
-dest_files=[ "res://.import/TexturesCom_Grass0110_1_seamless_S.jpg-1aac6eeecd7d206e0506c525c1f5043e.stex" ]
+source_file="res://gfx/tiles/128rockdar.jpg"
+dest_files=[ "res://.import/128rockdar.jpg-76a453747e74a9b72fcfc2ec95668ee6.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
