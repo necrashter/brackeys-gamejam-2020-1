@@ -1,11 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://gfx/tiles/TexturesCom_Ground_Soil3_3x3_1K_albedo.jpg" type="Texture" id=1]
+[ext_resource path="res://src/map/UnderGroundSketch.gd" type="Script" id=2]
+[ext_resource path="res://src/map/TunnelLight.tscn" type="PackedScene" id=3]
 
 [node name="UnderGroundSketch" type="Node2D"]
+script = ExtResource( 2 )
+Hole = ExtResource( 3 )
 
 [node name="TexturesCom_Ground_Soil3_3x3_1K_albedo" type="Sprite" parent="."]
-position = Vector2( 40.5816, 36.8432 )
+modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
+position = Vector2( 40.5816, 37.2017 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 10000, 10000 )
+region_rect = Rect2( 0, 0, 10240, 10240 )
