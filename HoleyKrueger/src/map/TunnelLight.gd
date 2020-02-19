@@ -18,4 +18,9 @@ func _ready():
 
 func _on_TunnelLight_body_entered(body):
 	if body.is_in_group("player"):
-		body.can_go_up = true;
+		body.nearby_holes += 1;
+
+
+func _on_TunnelLight_body_exited(body):
+	if body.is_in_group("player"):
+		body.nearby_holes -= 1;

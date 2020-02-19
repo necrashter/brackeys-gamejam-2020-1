@@ -18,4 +18,9 @@ func _ready():
 
 func _on_Hole_body_entered(body):
 	if body.is_in_group("player"):
-		get_tree().get_root().get_node("Combined").change_scene();
+		body.nearby_holes += 1;
+
+
+func _on_Hole_body_exited(body):
+	if body.is_in_group("player"):
+		body.nearby_holes -= 1;

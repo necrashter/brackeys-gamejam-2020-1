@@ -60,26 +60,10 @@
 [ext_resource path="res://gfx/krueger/handgun_reload/0039.png" type="Texture" id=58]
 [ext_resource path="res://gfx/krueger/handgun_reload/0040.png" type="Texture" id=59]
 [ext_resource path="res://gfx/krueger/handgun_reload/0012.png" type="Texture" id=60]
-[ext_resource path="res://src/BlockSelector.gd" type="Script" id=61]
+[ext_resource path="res://src/BlockSelector.tscn" type="PackedScene" id=61]
 [ext_resource path="res://src/Bullet.tscn" type="PackedScene" id=62]
 [ext_resource path="res://src/PlayerNode.gd" type="Script" id=63]
-
-[sub_resource type="Animation" id=1]
-resource_name = "glow"
-length = 0.7
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.1, 0.4, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.0705882, 0.572549, 0.607843, 0.427451 ), Color( 0.105882, 0.823529, 0.87451, 0.658824 ), Color( 0.0705882, 0.572549, 0.607843, 0.427451 ) ]
-}
+[ext_resource path="res://src/HUD.tscn" type="PackedScene" id=64]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 96.3557
@@ -131,24 +115,13 @@ tracks/0/keys = {
 [node name="PlayerNode" type="Node2D"]
 script = ExtResource( 63 )
 
-[node name="BlockSelector" type="ColorRect" parent="."]
-margin_right = 128.0
-margin_bottom = 128.0
-color = Color( 0.0934013, 0.734775, 0.780208, 0.577003 )
-script = ExtResource( 61 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BlockSelector"]
-autoplay = "glow"
-anims/glow = SubResource( 1 )
+[node name="BlockSelector" parent="." instance=ExtResource( 61 )]
 
 [node name="PlayerBody" type="KinematicBody2D" parent="." groups=[
 "player",
 "zombie_meat",
 ]]
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.4, 0.4 )
 script = ExtResource( 2 )
 Bullet = ExtResource( 62 )
 
@@ -161,7 +134,7 @@ rotation = 2.44346
 [node name="Torse" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
 frames = SubResource( 3 )
 animation = "breathe"
-frame = 1
+frame = 3
 playing = true
 
 [node name="Spade" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
@@ -177,7 +150,7 @@ frames = SubResource( 5 )
 animation = "shoot"
 
 [node name="Position2D" type="Position2D" parent="PlayerBody/AnimComplex/Handgun"]
-position = Vector2( -145.144, -130.7 )
+position = Vector2( 106.689, 46.7834 )
 rotation = -2.44346
 scale = Vector2( 2.34144, 2.34144 )
 
@@ -197,6 +170,11 @@ texture = ExtResource( 10 )
 
 [node name="Camera2D" type="Camera2D" parent="PlayerBody"]
 current = true
+limit_left = -5120
+limit_top = -5120
+limit_right = 5120
+limit_bottom = 5120
+limit_smoothed = true
 drag_margin_left = 0.0
 drag_margin_top = 0.0
 drag_margin_right = 0.0
@@ -204,4 +182,6 @@ drag_margin_bottom = 0.0
 
 [node name="HitAnim" type="AnimationPlayer" parent="PlayerBody"]
 anims/hit = SubResource( 6 )
+
+[node name="HUD" parent="." instance=ExtResource( 64 )]
 [connection signal="animation_finished" from="PlayerBody/AnimComplex/Handgun" to="PlayerBody" method="_on_Handgun_animation_finished"]

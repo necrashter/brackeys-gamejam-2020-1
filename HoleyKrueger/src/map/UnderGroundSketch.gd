@@ -9,9 +9,13 @@ func _ready():
 
 
 
-func on_dig(pos):
+func add_hole(pos):
 	var hole = Hole.instance();
 	hole.position = pos*128
 	hole.position.x += 64
 	hole.position.y += 64
 	add_child(hole);
+
+func remove_tile(pos):
+	$TileMap.set_cellv(pos, -1);
+	$ShadowTiles.set_cellv(pos, -1);

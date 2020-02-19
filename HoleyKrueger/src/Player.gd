@@ -3,13 +3,13 @@ extends KinematicBody2D
 
 export (PackedScene) var Bullet;
 
-export var speed =16;
+export var speed =800;
 var velocity;
 
 var hands;
 var handgun_shoot_finished = true;
 
-var can_go_up = false;
+var nearby_holes =0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,7 +31,7 @@ func _process(delta):
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed;
 	look_at(get_global_mouse_position());
-	move_and_collide(velocity);
+	velocity =move_and_slide(velocity);
 	if Input.is_action_just_pressed("k1"):
 		select_spade()
 	elif Input.is_action_just_pressed("k2"):
@@ -46,9 +46,8 @@ func _process(delta):
 			shoot_bullet()
 		elif Input.is_action_just_pressed("reload"):
 			$AnimComplex/Handgun.play("reload")
-	if Input.is_action_just_pressed("go_up") and can_go_up:
+	if Input.is_action_just_pressed("go_up") and nearby_holes>0:
 		get_tree().get_root().get_node("Combined").change_scene();
-		can_go_up = false;
 
 func select_spade():
 	hands = "spade"
@@ -57,7 +56,7 @@ func select_spade():
 	$AnimComplex/Handgun.visible = false;
 	$AnimComplex/backpack.visible = true;
 	$AnimComplex/backpack2.visible = false;
-	get_node("../BlockSelector").visible = true;
+	get_node("../BlockSelector").enable();
 	
 
 func select_handgun():
@@ -67,7 +66,7 @@ func select_handgun():
 	$AnimComplex/Handgun.visible = true;
 	$AnimComplex/backpack.visible = false;
 	$AnimComplex/backpack2.visible = true;
-	get_node("../BlockSelector").visible = false;
+	get_node("../BlockSelector").disable();
 
 
 func _on_Handgun_animation_finished():
