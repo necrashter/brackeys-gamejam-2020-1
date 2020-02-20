@@ -1,0 +1,12 @@
+Holy Robots: They are turret like robots that cannot move but fire huge laser beams that kill at the instant it touches the character.
+Features:
+Damage: One shot kill
+Speed: No relocation
+HP: Medium
+Frequency: Medium
+
+Holizard: Small creatures that deal low damage, but fast
+Damage: Low (really!)
+Speed: Fast (really! Adamı maymun eder)
+HP: Low
+Frequency: Attacks in crowds, you can find easily
