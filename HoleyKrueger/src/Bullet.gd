@@ -23,5 +23,5 @@ func _on_Bullet_body_entered(body):
 	if body.is_in_group("fragile"):
 		body.get_hit();
 		queue_free();
-	elif body is StaticBody2D:
+	elif body is StaticBody2D or body is TileMap:
 		queue_free()

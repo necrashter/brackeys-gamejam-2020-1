@@ -14,7 +14,7 @@ func _ready():
 #	pass
 
 
-func on_dig(pos):
+func add_hole(pos):
 	var hole = Hole.instance();
 	hole.position = pos*128
 	hole.position.x += 64

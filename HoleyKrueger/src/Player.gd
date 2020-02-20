@@ -3,13 +3,16 @@ extends KinematicBody2D
 
 export (PackedScene) var Bullet;
 
-export var speed =16;
+export var speed =800;
 var velocity;
 
 var hands;
 var handgun_shoot_finished = true;
 
-var can_go_up = false;
+var nearby_holes =0;
+
+var ammo = 100;
+var handgun_ammo = 8;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,7 +34,7 @@ func _process(delta):
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed;
 	look_at(get_global_mouse_position());
-	move_and_collide(velocity);
+	velocity =move_and_slide(velocity);
 	if Input.is_action_just_pressed("k1"):
 		select_spade()
 	elif Input.is_action_just_pressed("k2"):
@@ -42,13 +45,14 @@ func _process(delta):
 			$HitAnim.play("hit");
 	elif hands == "handgun":
 		if Input.is_mouse_button_pressed(1) and handgun_shoot_finished:
-			$AnimComplex/Handgun.play("shoot")
-			shoot_bullet()
+			if handgun_ammo >0:
+				shoot_bullet()
+			#else: #play empty sound?
 		elif Input.is_action_just_pressed("reload"):
 			$AnimComplex/Handgun.play("reload")
-	if Input.is_action_just_pressed("go_up") and can_go_up:
+			handgun_shoot_finished = false;
+	if Input.is_action_just_pressed("go_up") and nearby_holes>0:
 		get_tree().get_root().get_node("Combined").change_scene();
-		can_go_up = false;
 
 func select_spade():
 	hands = "spade"
@@ -57,7 +61,8 @@ func select_spade():
 	$AnimComplex/Handgun.visible = false;
 	$AnimComplex/backpack.visible = true;
 	$AnimComplex/backpack2.visible = false;
-	get_node("../BlockSelector").visible = true;
+	get_node("../BlockSelector").enable();
+	$HUD/AmmoLabel.text = "Spade"
 	
 
 func select_handgun():
@@ -67,16 +72,27 @@ func select_handgun():
 	$AnimComplex/Handgun.visible = true;
 	$AnimComplex/backpack.visible = false;
 	$AnimComplex/backpack2.visible = true;
-	get_node("../BlockSelector").visible = false;
+	get_node("../BlockSelector").disable();
+	$HUD.update_ammo(handgun_ammo, ammo);
 
 
 func _on_Handgun_animation_finished():
 	$AnimComplex/Handgun.stop()
-	if $AnimComplex/Handgun.animation == "shoot":
-		handgun_shoot_finished = true;
+	handgun_shoot_finished = true;
+	if $AnimComplex/Handgun.animation == "reload":
+		if ammo >=7:
+			ammo -= 7-handgun_ammo;
+			handgun_ammo = 7;
+		else:
+			handgun_ammo += ammo;
+			ammo = 0;
+		$HUD.update_ammo(handgun_ammo, ammo);
 
-func shoot_bullet():	
+func shoot_bullet():
+	$AnimComplex/Handgun.play("shoot")
 	var bullet = Bullet.instance();
 	bullet.shoot($AnimComplex/Handgun/Position2D.get_global_transform().get_origin(), rotation)
 	get_tree().get_root().add_child(bullet);
 	handgun_shoot_finished = false
+	handgun_ammo -= 1;
+	$HUD.update_ammo(handgun_ammo, ammo);
