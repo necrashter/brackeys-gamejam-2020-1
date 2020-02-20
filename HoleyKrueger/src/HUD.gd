@@ -10,9 +10,11 @@ extends CanvasLayer
 func _ready():
 	pass # Replace with function body.
 
+func set_ammo_text(t):
+	$AmmoLabel.text = t;
 
-func update_ammo(ammo):
-	$AmmoLabel.text = "AMMO: "+str(ammo);
+func update_ammo(ammo, total):
+	$AmmoLabel.text = "AMMO: "+str(ammo)+"/"+str(total);
 
 func update_health(hp):
 	$HealthLabel.text = "HEALTH: "+str(hp);
