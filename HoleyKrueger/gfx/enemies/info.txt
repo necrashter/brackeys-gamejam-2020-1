@@ -1,12 +1,22 @@
 Holy Robots: They are turret like robots that cannot move but fire huge laser beams that kill at the instant it touches the character.
+
 Features:
 Damage: One shot kill
 Speed: No relocation
 HP: Medium
 Frequency: Medium
+Combat: Mid-level to Distant
+Sizes: 107 cm height, 73 cm width
+Movement: No movement
 
-Holizard: Small creatures that deal low damage, but fast
-Damage: Low (really!)
+Holizard: Small creatures that deal low damage, but fast. They leap forward using both feet, they dont walk nor run. 
+They like, seksek, zıpzıp
+
+Features:
+Damage: Low (really! One shot hem de)
 Speed: Fast (really! Adamı maymun eder)
 HP: Low
 Frequency: Attacks in crowds, you can find easily
+Combat: Close-range
+Sizes: 60 cm height, 30 cm width
+Movement: leap forward
