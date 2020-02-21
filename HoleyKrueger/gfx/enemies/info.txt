@@ -4,7 +4,7 @@ Features:
 Damage: One shot kill
 Speed: No relocation
 HP: Medium
-Frequency: Medium
+Frequency: Rare
 Combat: Mid-level to Distant
 Sizes: 107 cm height, 73 cm width
 Movement: No movement
@@ -19,4 +19,15 @@ HP: Low
 Frequency: Attacks in crowds, you can find easily
 Combat: Close-range
 Sizes: 60 cm height, 30 cm width
-Movement: leap forward
+Movement: leap forward with both feet
+
+Features:
+Damage: One shot kill
+Speed: No relocation
+HP: Low (Has a shield, therefore should attack behind)
+Frequency: Medium
+Combat: Distant
+Sizes: 167 cm height, 53 cm width
+Movement: No movement
+
+
