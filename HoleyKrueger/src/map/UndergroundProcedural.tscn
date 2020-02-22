@@ -16,6 +16,12 @@ texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 10240, 10240 )
 
+[node name="BackTiles" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( -65535, 5, 0 )
+
 [node name="ShadowTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 5 )
 cell_size = Vector2( 128, 128 )

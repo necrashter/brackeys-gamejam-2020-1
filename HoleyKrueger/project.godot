@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="HoleyKrueger"
-run/main_scene="res://src/map/Combined.tscn"
+run/main_scene="res://src/map/Combined3.tscn"
 config/icon="res://icon.png"
 
 [input]
@@ -72,6 +72,11 @@ reload={
 go_up={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+ ]
+}
+shift={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"unicode":0,"echo":false,"script":null)
  ]
 }
 

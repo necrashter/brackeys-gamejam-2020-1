@@ -3,8 +3,8 @@ extends KinematicBody2D
 signal shot;
 signal die(position)
 
-export var speed = 6;
-export var hp = 4;
+export var speed = 600;
+export var hp = 10;
 
 var state;
 var velocity = Vector2();
@@ -16,7 +16,10 @@ var victim;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity.x = speed;
-	start_wander()
+	#start_wander()
+	
+func _enter_tree():
+	_on_VisibilityNotifier2D_screen_exited()
 
 func start_wander():
 	state = "wander";
@@ -34,18 +37,18 @@ func start_idle():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if push_velo.length_squared() > 0.1:
-		move_and_collide(push_velo);
+		move_and_slide(push_velo);
 		push_velo.x *= .9;
 		push_velo.y *= .9;
 	elif state == "wander":
-		move_and_collide(velocity.rotated(rotation))
+		move_and_slide(velocity.rotated(rotation))
 	elif state == "chase":
 		if !victim.get_ref():
 			start_idle();
 		else:
 			var target_rotation = (victim.get_ref().position - position).angle()
 			rotation = target_rotation*0.25 + rotation*0.75
-			move_and_collide(velocity.rotated(rotation))
+			move_and_slide(velocity.rotated(rotation))
 
 func rand_turn():
 	turn_anim = Animation.new();
@@ -58,7 +61,10 @@ func rand_turn():
 func _on_BoredTimer_timeout():
 	if state == "chase" or state == "dying" or state == "attack":
 		return;
-	$IdleNoise.play()
+	if randi() %2:
+		$IdleNoise0.play()
+	else:
+		$IdleNoise1.play()
 	if randi() % 2:
 		start_wander();
 	else:
@@ -66,42 +72,43 @@ func _on_BoredTimer_timeout():
 
 
 func _on_Sense_body_entered(body):
-	if body.is_in_group("zombie_meal"):
+	if body.is_in_group("zombie_meat"):
 		victim = weakref(body);
 		$Area2D.get_overlapping_bodies().has(victim);
 		$AnimatedSprite.animation = "walk"
 		state = "chase";
 
-func get_hit():
+func get_hit(dmg):
 	if state=="dying":
 		return;
+	$PainNoise.play()
 	emit_signal("shot")
-	hp -= 1;
+	hp -= dmg;
 	if hp <= 0:
 		state = "dying"
-		$AnimatedSprite.play("die"+str(randi()%2));
+		die()
 
-
+func die():
+	emit_signal("die", position);
+	#var spr = get_node("AnimatedSprite");
+	#remove_child(spr);
+	#get_parent().add_child(spr);
+	#get_parent().add_child(spr);
+	#spr.position = position;
+	#spr.rotation = rotation;
+	#spr.scale = scale;
+	#spr.z_index = -1;
+	#spr.stop()
+	#spr.animation = "die";
+	#spr.set_frame(16);
+	queue_free();
+	
 func _on_AnimatedSprite_animation_finished():
-	if state=="dying":
-		emit_signal("die", position);
-		var spr = get_node("AnimatedSprite");
-		remove_child(spr);
-		#get_parent().add_child(spr);
-		get_parent().add_child(spr);
-		spr.position = position;
-		spr.rotation = rotation;
-		spr.scale = scale;
-		spr.z_index = -1;
-		spr.stop()
-		#spr.animation = "die";
-		spr.set_frame(16);
-		queue_free()
-	elif state == "attack":
+	if state == "attack" and push_velo.length_squared() <= 0.1:
 		if victim.get_ref():
 			if $Area2D.get_overlapping_bodies().has(victim.get_ref()):
 				victim.get_ref().get_hit(rand_range(2.0, 8.0));
-				$AnimatedSprite.play("attack0"+str(randi()%2+1));
+				$AnimatedSprite.play("attack");
 			else:
 				state = "chase";
 				$AnimatedSprite.animation = "walk"
@@ -112,11 +119,36 @@ func _on_AnimatedSprite_animation_finished():
 func _on_Area2D_body_entered(body):
 	if state == "dying":
 		return;
-	if body.is_in_group("zombie_meal"):
+	if body.is_in_group("zombie_meat"):
 		victim = weakref(body)
-		body.get_hit(rand_range(2.0, 8.0));
+		if push_velo.length_squared() <= 0.1:
+			body.get_hit(rand_range(2.0, 8.0));
+			$AnimatedSprite.play("attack")
 		state = "attack";
-		$AnimatedSprite.play("attack0"+str(randi()%2+1))
 		
 func push(vec):
+	get_hit(2)
 	push_velo = vec;
+
+
+func _on_Sense_body_exited(body):
+	if victim and victim.get_ref() == body:
+		start_idle();
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	print("In")
+	set_process(true)
+	set_process_internal(true)
+	for c in get_children():
+		c.set_process(true)
+		c.set_process_internal(true)
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	print("out")
+	set_process(false)
+	set_process_internal(false)
+	for c in get_children():
+		c.set_process(false)
+		c.set_process_internal(false)

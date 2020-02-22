@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/275151__bird-man__gun-shot.wav-48bbb90d700c4f3570bac023b9d7bedb.sample"
+
+[deps]
+
+source_file="res://sfx/275151__bird-man__gun-shot.wav"
+dest_files=[ "res://.import/275151__bird-man__gun-shot.wav-48bbb90d700c4f3570bac023b9d7bedb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

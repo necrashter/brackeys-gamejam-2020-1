@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/map/tileset1.tres" type="TileSet" id=1]
+[ext_resource path="res://gfx/tiles/TexturesCom_Grass0110_1_seamless_S.jpg" type="Texture" id=2]
+[ext_resource path="res://src/map/Hole.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Zombie.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/map/map_sketch2.gd" type="Script" id=5]
+[ext_resource path="res://test/blocks1.jpg" type="Texture" id=6]
+[ext_resource path="res://test/Car.tscn" type="PackedScene" id=7]
+[ext_resource path="res://test/05muronero.jpg" type="Texture" id=8]
+[ext_resource path="res://src/map/shadow.tres" type="TileSet" id=12]
+[ext_resource path="res://src/enemy/HolyRobot00.tscn" type="PackedScene" id=14]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
+
+[sub_resource type="TileSet" id=3]
+0/name = "blocks1.jpg 0"
+0/texture = ExtResource( 6 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 128, 128 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "05muronero.jpg 1"
+1/texture = ExtResource( 8 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 128, 128 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 5 )
+Hole = ExtResource( 3 )
+
+[node name="TexturesCom_Grass0110_1_seamless_S" type="Sprite" parent="."]
+modulate = Color( 0.658824, 0.623529, 0.623529, 1 )
+position = Vector2( 108.556, 5.2012 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 10240, 10240 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 128 )
+format = 1
+
+[node name="Zombie" parent="." instance=ExtResource( 4 )]
+position = Vector2( 2080.89, -552.386 )
+
+[node name="ShadowTiles" type="TileMap" parent="."]
+tile_set = ExtResource( 12 )
+cell_size = Vector2( 128, 128 )
+centered_textures = true
+format = 1
+
+[node name="WallTiles" type="TileMap" parent="."]
+tile_set = SubResource( 3 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( 65535, 0, 0, 0, 0, 0, 1, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 196607, 0, 0, 131072, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196626, -1073741823, 0, 196627, -1073741823, 0, 262144, 0, 0, 262160, -1073741823, 0, 262164, -1073741823, 0, 327680, 0, 0, 327694, -1073741823, 0, 327696, -1073741823, 0, 327700, -1073741823, 0, 393216, 0, 0, 393227, -1073741823, 0, 393228, -1073741823, 0, 393229, -1073741823, 0, 393230, -1073741823, 0, 393232, -1073741823, 0, 393235, -1073741823, 0, 458752, 0, 0, 458753, -1073741823, 0, 458761, -1073741823, 0, 458762, -1073741823, 0, 458763, -1073741823, 0, 458764, -1073741823, 0, 458765, -1073741823, 0, 458769, -1073741823, 0, 458770, -1073741823, 0, 524289, 0, 0, 589825, 0, 0, 655361, 0, 0, 720897, 0, 0, 786433, 0, 0, 851969, 0, 0, 917505, 0, 0, 983041, 0, 0, 1048577, 0, 0, 1114113, 0, 0, 1179649, 0, 0, 1245185, 0, 0, 1310720, 0, 0, 1376256, 0, 0, 1441792, 0, 0, 1507328, 0, 0, 1572864, 0, 0, 1638400, 0, 0, 1703936, 0, 0, 1769472, 0, 0, 1835008, 0, 0, 1900544, 0, 0, 1966080, 0, 0, 2031616, 0, 0, 2228224, -1073741824, 0, 2228237, -1073741824, 0, 2293760, -1073741824, 0, 2293773, -1073741824, 0, 2359296, -1073741824, 0, 2359309, -1073741824, 0, 2424832, -1073741824, 0, 2424845, -1073741824, 0, 2490368, 0, 0, 2490380, -1073741824, 0, 2555904, 0, 0, 2555905, -1073741824, 0, 2555906, -1073741824, 0, 2555907, -1073741824, 0, 2555908, -1073741824, 0, 2555909, -1073741824, 0, 2555910, -1073741824, 0, 2555911, -1073741824, 0, 2555912, -1073741824, 0, 2555913, -1073741824, 0, 2555914, -1073741824, 0, 2555915, -1073741824, 0, 2555916, -1073741824, 0, 2555917, -1073741824, 0, 2621452, -1073741824, 0 )
+
+[node name="Car" parent="." instance=ExtResource( 7 )]
+position = Vector2( 449.813, 140.359 )
+
+[node name="Car2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 704.692, 957.388 )
+rotation = 0.47473
+
+[node name="Car3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1314.53, 146.059 )
+rotation = 1.5708
+
+[node name="HolyRobot00" parent="." instance=ExtResource( 14 )]
+position = Vector2( -658.821, 86.9792 )

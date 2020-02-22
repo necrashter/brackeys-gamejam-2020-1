@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://gfx/krueger/torso/breathe0000.png" type="Texture" id=1]
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
@@ -64,9 +64,15 @@
 [ext_resource path="res://src/Bullet.tscn" type="PackedScene" id=62]
 [ext_resource path="res://src/PlayerNode.gd" type="Script" id=63]
 [ext_resource path="res://src/HUD.tscn" type="PackedScene" id=64]
+[ext_resource path="res://gfx/muzzle.png" type="Texture" id=65]
+[ext_resource path="res://sfx/396331__nioczkus__1911-reload.wav" type="AudioStream" id=66]
+[ext_resource path="res://sfx/275151__bird-man__gun-shot.wav" type="AudioStream" id=67]
+[ext_resource path="res://sfx/416839__alineaudio__grunt1-death-pain.wav" type="AudioStream" id=68]
+[ext_resource path="res://sfx/dig.wav" type="AudioStream" id=69]
+[ext_resource path="res://gfx/shadow512.png" type="Texture" id=70]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 96.3557
+radius = 122.762
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -98,7 +104,25 @@ animations = [ {
 } ]
 
 [sub_resource type="Animation" id=5]
-length = 0.6
+resource_name = "muzzle"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1.51572, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.45
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimComplex:rotation_degrees")
 tracks/0/interp = 1
@@ -106,16 +130,29 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
 "transitions": PoolRealArray( 2, 0.535887, 1, 1 ),
 "update": 0,
 "values": [ 119.1, 182.1, 60.0, 119.1 ]
 }
 
+[sub_resource type="CircleShape2D" id=7]
+radius = 191.287
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 20.0
+height = 70.998
+
 [node name="PlayerNode" type="Node2D"]
+z_index = 10
 script = ExtResource( 63 )
 
 [node name="BlockSelector" parent="." instance=ExtResource( 61 )]
+
+[node name="DigSound" type="AudioStreamPlayer2D" parent="BlockSelector"]
+scale = Vector2( 0.4, 0.4 )
+stream = ExtResource( 69 )
+stream_paused = true
 
 [node name="PlayerBody" type="KinematicBody2D" parent="." groups=[
 "player",
@@ -125,20 +162,23 @@ scale = Vector2( 0.4, 0.4 )
 script = ExtResource( 2 )
 Bullet = ExtResource( 62 )
 
+[node name="Shadow" type="Sprite" parent="PlayerBody"]
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 70 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
 shape = SubResource( 1 )
 
 [node name="AnimComplex" type="Node2D" parent="PlayerBody"]
-rotation = 2.44346
+rotation = 2.47837
 
 [node name="Torse" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
 frames = SubResource( 2 )
 animation = "breathe"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Spade" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
-visible = false
 position = Vector2( -29.8876, -124.824 )
 frames = SubResource( 3 )
 animation = "dig"
@@ -150,9 +190,19 @@ frames = SubResource( 4 )
 animation = "shoot"
 
 [node name="Position2D" type="Position2D" parent="PlayerBody/AnimComplex/Handgun"]
-position = Vector2( 106.689, 46.7834 )
+position = Vector2( -133.669, -128.724 )
 rotation = -2.44346
 scale = Vector2( 2.34144, 2.34144 )
+
+[node name="Muzzle" type="Sprite" parent="PlayerBody/AnimComplex/Handgun"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -267.851, -222.114 )
+rotation = -2.46091
+scale = Vector2( 2.50974, 2.50974 )
+texture = ExtResource( 65 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerBody/AnimComplex/Handgun/Muzzle"]
+anims/muzzle = SubResource( 5 )
 
 [node name="backpack" type="Sprite" parent="PlayerBody/AnimComplex"]
 visible = false
@@ -181,7 +231,34 @@ drag_margin_right = 0.0
 drag_margin_bottom = 0.0
 
 [node name="HitAnim" type="AnimationPlayer" parent="PlayerBody"]
-anims/hit = SubResource( 5 )
+anims/hit = SubResource( 6 )
 
 [node name="HUD" parent="PlayerBody" instance=ExtResource( 64 )]
+
+[node name="GruntSound" type="AudioStreamPlayer2D" parent="PlayerBody"]
+stream = ExtResource( 68 )
+
+[node name="ReloadSound" type="AudioStreamPlayer2D" parent="PlayerBody"]
+stream = ExtResource( 66 )
+attenuation = 0.000145167
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="PlayerBody"]
+scale = Vector2( 2.5, 2.5 )
+stream = ExtResource( 67 )
+attenuation = 1.10957
+
+[node name="MeleeArea" type="Area2D" parent="PlayerBody"]
+position = Vector2( 300, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody/MeleeArea"]
+position = Vector2( -14.1351, 2.83016 )
+shape = SubResource( 7 )
+
+[node name="BlockArea" type="Area2D" parent="PlayerBody"]
+position = Vector2( 160, 70 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody/BlockArea"]
+rotation = 1.5708
+shape = SubResource( 8 )
 [connection signal="animation_finished" from="PlayerBody/AnimComplex/Handgun" to="PlayerBody" method="_on_Handgun_animation_finished"]
+[connection signal="animation_finished" from="PlayerBody/HitAnim" to="PlayerBody" method="_on_HitAnim_animation_finished"]
