@@ -175,7 +175,7 @@ rotation = 2.47837
 [node name="Torse" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
 frames = SubResource( 2 )
 animation = "breathe"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Spade" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]

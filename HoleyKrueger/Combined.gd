@@ -8,7 +8,8 @@ var underground;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$PlayerNode/BlockSelector.tile_checker = self;
+	if $PlayerNode:
+		$PlayerNode/BlockSelector.tile_checker = self;
 	in_underground = false;
 	overground = $Node2D
 	underground = UnderGround.instance();
