@@ -82,6 +82,9 @@ func back_up(delta, distance):
 func _on_Domain_body_entered(body):
 	if body.is_in_group("zombie_meat"):
 		target = weakref(body)
+		$HolyRobot00._on_Sight_body_entered(body)
+		$HolyRobot01._on_Sight_body_entered(body)
+		$HolyRobot02._on_Sight_body_entered(body)
 		state = "seek"
 
 
