@@ -16,14 +16,14 @@ func _ready():
 
 
 func lock_target(target, delta):
-	target_rotation = (target.position - $LowerArm.get_global_transform().get_origin()).angle() + PI/2 - get_parent().rotation;
-	var dif = target_rotation-$LowerArm.rotation
+	target_rotation = (target.position - $LowerArm.get_global_transform().get_origin()).angle() + PI/2
+	var dif = target_rotation-$LowerArm.global_rotation
 	if dif>PI:
 		dif -= 2*PI
 	elif dif<-PI:
 		dif += 2*PI
-	$LowerArm.rotation += clamp(dif, -1, 1)*delta*turn_speed;
-	if should_shoot:
+	$LowerArm.global_rotation += clamp(dif, -1, 1)*delta*turn_speed;
+	if should_shoot and !get_parent().hold_fire:
 		shoot()
 
 func shoot():

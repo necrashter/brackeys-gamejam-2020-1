@@ -16,7 +16,10 @@ var victim;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity.x = speed;
-	start_wander()
+	#start_wander()
+	
+func _enter_tree():
+	_on_VisibilityNotifier2D_screen_exited()
 
 func start_wander():
 	state = "wander";
@@ -58,7 +61,10 @@ func rand_turn():
 func _on_BoredTimer_timeout():
 	if state == "chase" or state == "dying" or state == "attack":
 		return;
-	$IdleNoise0.play()
+	if randi() %2:
+		$IdleNoise0.play()
+	else:
+		$IdleNoise1.play()
 	if randi() % 2:
 		start_wander();
 	else:
@@ -67,7 +73,6 @@ func _on_BoredTimer_timeout():
 
 func _on_Sense_body_entered(body):
 	if body.is_in_group("zombie_meat"):
-		print("chase")
 		victim = weakref(body);
 		$Area2D.get_overlapping_bodies().has(victim);
 		$AnimatedSprite.animation = "walk"
@@ -129,3 +134,21 @@ func push(vec):
 func _on_Sense_body_exited(body):
 	if victim and victim.get_ref() == body:
 		start_idle();
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	print("In")
+	set_process(true)
+	set_process_internal(true)
+	for c in get_children():
+		c.set_process(true)
+		c.set_process_internal(true)
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	print("out")
+	set_process(false)
+	set_process_internal(false)
+	for c in get_children():
+		c.set_process(false)
+		c.set_process_internal(false)

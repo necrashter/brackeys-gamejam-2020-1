@@ -1,9 +1,7 @@
 extends StaticBody2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export (bool) var never_forget = false;
+export (bool) var hold_fire = false;
 
 var target = null;
 var state = "idle";
@@ -25,17 +23,17 @@ func _process(delta):
 	if state == "hunt":
 		if target.get_ref():
 			var t = target.get_ref();
-			target_rotation = (t.position - position).angle() + PI/2;
+			target_rotation = (t.position).angle_to_point(global_position) + PI/2
 			if has_node("LeftArm"): $LeftArm.lock_target(t, delta)
 			if has_node("RightArm"): $RightArm.lock_target(t, delta)
 		else:
 			state = "idle"
-	var dif = target_rotation-rotation
+	var dif = target_rotation-global_rotation
 	if dif>PI:
 		dif -= 2*PI
 	elif dif<-PI:
 		dif += 2*PI
-	rotation += clamp(dif, -1, 1)*delta*turn_speed;
+	global_rotation += clamp(dif, -1, 1)*delta*turn_speed;
 
 
 func _on_Sight_body_entered(body):
@@ -46,6 +44,8 @@ func _on_Sight_body_entered(body):
 
 
 func _on_Sight_body_exited(body):
+	if never_forget:
+		return
 	if state=="hunt" and target.get_ref() and target.get_ref() == body:
 		state = "idle";
 		$Head.set_green()
