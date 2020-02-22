@@ -17,5 +17,7 @@ func add_hole(pos):
 	add_child(hole);
 
 func remove_tile(pos):
+	var out  = $ShadowTiles.get_cellv(pos) == 0;
 	$TileMap.set_cellv(pos, -1);
 	$ShadowTiles.set_cellv(pos, -1);
+	return out;

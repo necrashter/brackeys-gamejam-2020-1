@@ -20,3 +20,4 @@ func add_hole(pos):
 	hole.position.x += 64
 	hole.position.y += 64
 	add_child(hole);
+

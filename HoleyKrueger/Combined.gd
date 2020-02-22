@@ -15,10 +15,14 @@ func _ready():
 	underground.generate_map()
 	for x in range(-40,40):
 		for y in range(-40,40):
-			if underground.get_node("TileMap").get_cell(x,y)==1:
-				overground.get_node("TileMap").set_cell(x,y,2);
 			#else:
 			#	overground.get_node("TileMap").set_cell(x,y,-1);
+			if overground.get_node("WallTiles").get_cell(x,y)>=0:
+				underground.get_node("BackTiles").set_cell(x,y,5);
+			elif overground.get_node("TileMap").get_cell(x,y)>=0:
+				underground.get_node("BackTiles").set_cell(x,y,5);
+			elif underground.get_node("TileMap").get_cell(x,y)==1:
+				overground.get_node("TileMap").set_cell(x,y,2);
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,10 +41,16 @@ func change_scene():
 
 func _on_PlayerNode_on_dig(pos):
 	print("digged:",pos.x, pos.y);
-	underground.remove_tile(pos);
-	if !in_underground:
+	var dug = underground.remove_tile(pos);
+	if !in_underground or !dug:
 		overground.add_hole(pos);
 		underground.add_hole(pos);
 
 func can_dig(pos):
-	return underground.get_node("TileMap").get_cellv(pos)!=1;
+	var undtile = underground.get_node("TileMap").get_cellv(pos)
+	var undback = underground.get_node("BackTiles").get_cellv(pos)
+	if undback > 0:
+		return undtile != 1 and undtile >= 0 and in_underground
+	else:
+		return undtile != 1
+	return undtile != 1 and (undback==-1 or undtile != 1);
