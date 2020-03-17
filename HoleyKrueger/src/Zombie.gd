@@ -3,7 +3,7 @@ extends KinematicBody2D
 signal shot;
 signal die(position)
 
-export var speed = 600;
+export var speed = 500;
 export var hp = 10;
 
 var state;
@@ -35,20 +35,29 @@ func start_idle():
 	$BoredTimer.start(rand_range(1,3))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if push_velo.length_squared() > 0.1:
-		move_and_slide(push_velo);
-		push_velo.x *= .9;
-		push_velo.y *= .9;
-	elif state == "wander":
-		move_and_slide(velocity.rotated(rotation))
+func _physics_process(delta):
+	var net_velo = Vector2();
+	if state == "wander":
+		net_velo = velocity.rotated(rotation)
 	elif state == "chase":
 		if !victim.get_ref():
 			start_idle();
 		else:
 			var target_rotation = (victim.get_ref().position - position).angle()
-			rotation = target_rotation*0.25 + rotation*0.75
-			move_and_slide(velocity.rotated(rotation))
+			rotation = target_rotation#*0.25 + rotation*0.75
+			net_velo = velocity.rotated(rotation)
+	if push_velo.length_squared() > 0.1:
+		push_velo.x *= .92;
+		push_velo.y *= .92;
+		net_velo.x += push_velo.x
+		net_velo.y += push_velo.y
+	move_and_slide(net_velo)
+
+func _process(delta):
+	if state:
+		$Label.text = state;
+	else:
+		$Label.text = "NULL"
 
 func rand_turn():
 	turn_anim = Animation.new();
@@ -104,7 +113,7 @@ func die():
 	queue_free();
 	
 func _on_AnimatedSprite_animation_finished():
-	if state == "attack" and push_velo.length_squared() <= 0.1:
+	if state == "attack":
 		if victim.get_ref():
 			if $Area2D.get_overlapping_bodies().has(victim.get_ref()):
 				victim.get_ref().get_hit(rand_range(2.0, 8.0));
@@ -127,7 +136,6 @@ func _on_Area2D_body_entered(body):
 		state = "attack";
 		
 func push(vec):
-	get_hit(2)
 	push_velo = vec;
 
 
@@ -137,7 +145,6 @@ func _on_Sense_body_exited(body):
 
 
 func _on_VisibilityNotifier2D_screen_entered():
-	print("In")
 	set_process(true)
 	set_process_internal(true)
 	for c in get_children():
@@ -146,7 +153,6 @@ func _on_VisibilityNotifier2D_screen_entered():
 
 
 func _on_VisibilityNotifier2D_screen_exited():
-	print("out")
 	set_process(false)
 	set_process_internal(false)
 	for c in get_children():

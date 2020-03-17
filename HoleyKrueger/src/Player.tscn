@@ -156,6 +156,7 @@ stream_paused = true
 
 [node name="PlayerBody" type="KinematicBody2D" parent="." groups=[
 "player",
+"seer",
 "zombie_meat",
 ]]
 scale = Vector2( 0.4, 0.4 )
@@ -175,7 +176,7 @@ rotation = 2.47837
 [node name="Torse" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
 frames = SubResource( 2 )
 animation = "breathe"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Spade" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
@@ -220,15 +221,12 @@ texture = ExtResource( 10 )
 
 [node name="Camera2D" type="Camera2D" parent="PlayerBody"]
 current = true
+zoom = Vector2( 2, 2 )
 limit_left = -5120
 limit_top = -5120
 limit_right = 5120
 limit_bottom = 5120
 limit_smoothed = true
-drag_margin_left = 0.0
-drag_margin_top = 0.0
-drag_margin_right = 0.0
-drag_margin_bottom = 0.0
 
 [node name="HitAnim" type="AnimationPlayer" parent="PlayerBody"]
 anims/hit = SubResource( 6 )

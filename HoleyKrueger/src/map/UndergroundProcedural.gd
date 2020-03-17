@@ -22,6 +22,38 @@ func generate_map():
 				elif randi() % 40 == 0:
 					spawn_pistol(x,y)
 
+func fill_with_dirt():
+	for x in range(-40,40):
+		for y in range(-40,40):
+			$ShadowTiles.set_cell(x,y,0);
+			$TileMap.set_cell(x,y,0);
+
+func make_room(room):
+	for i in range(room.size.x):
+		for j in range(room.size.y):
+			$ShadowTiles.set_cell(room.position.x+i, room.position.y+j, -1);
+			$TileMap.set_cell(room.position.x+i, room.position.y+j, -1);
+
+func generate_room_map(max_rooms):
+	fill_with_dirt();
+	var rooms = []
+	for i in range(max_rooms):
+		var room = Rect2(
+			(randi() % 80) -40,
+			(randi() % 80) -40,
+			randi()%4 + 2,
+			randi()%4 + 2
+		);
+		var invalid = false;
+		for other in rooms:
+			if room.intersects(other):
+				invalid = true;
+				break;
+		if invalid:
+			continue;
+		make_room(room);
+		
+
 func spawn_holizard(x,y):
 	var holizard = Holizard.instance();
 	holizard.position.x = 128*x + 64;

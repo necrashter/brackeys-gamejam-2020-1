@@ -4,8 +4,8 @@ extends KinematicBody2D
 export (PackedScene) var Bullet;
 
 export var speed =800;
-const push_force = 1000;
-const spade_damage = 2;
+const push_force = 900;
+const spade_damage = 3;
 var velocity;
 
 var hands;
@@ -16,17 +16,19 @@ var nearby_holes =0;
 
 var hp = 100;
 
-var ammo = 100;
+var ammo = 0;
 var has_handgun = false;
 var handgun_ammo = 8;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Camera2D.force_update_scroll()
+	$Camera2D.position= Vector2(0,0)
 	velocity = Vector2();
 	select_spade()
 
 
-func _process(delta):
+func _physics_process(delta):
 	velocity.x = 0;
 	velocity.y = 0;
 	if Input.is_action_pressed("ui_right"):
@@ -38,7 +40,10 @@ func _process(delta):
 	if Input.is_action_pressed("ui_down"):
 		velocity.y += 1
 	if velocity.length() > 0:
+		get_parent().desired_zoom = 1.1
 		velocity = velocity.normalized() * speed;
+	else:
+		get_parent().desired_zoom = 1.0
 	look_at(get_global_mouse_position());
 	velocity =move_and_slide(velocity);
 	if Input.is_action_just_pressed("k1"):
@@ -145,9 +150,9 @@ func give_hp(p):
 	$HUD.update_health(hp)
 
 func is_blocked():
-	for body in $BlockArea.get_overlapping_bodies():
-		if body is StaticBody2D or body is TileMap:
-			return true;
+	#for body in $BlockArea.get_overlapping_bodies():
+	#	if body is StaticBody2D or body is TileMap:
+	#		return true;
 	return false
 
 func _on_HitAnim_animation_finished(anim_name):
