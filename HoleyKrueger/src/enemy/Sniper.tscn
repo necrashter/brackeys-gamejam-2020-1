@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://gfx/enemies/sniper.png" type="Texture" id=1]
+[ext_resource path="res://src/enemy/Sniper.gd" type="Script" id=2]
+[ext_resource path="res://src/enemy/Laser.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sfx/laser.wav" type="AudioStream" id=4]
+[ext_resource path="res://src/Bullet.tscn" type="PackedScene" id=5]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 139.474
+height = 583.926
+
+[node name="Sniper" type="KinematicBody2D"]
+script = ExtResource( 2 )
+Bullet = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 23.894, -24.5919 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="Laser" parent="." instance=ExtResource( 3 )]
+
+[node name="LaserSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Bullet" parent="." instance=ExtResource( 5 )]
