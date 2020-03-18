@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float time_mul = 3;
+
+void vertex(){
+	VERTEX += VERTEX*(cos(TIME*time_mul)*0.25+0.25);
+}
+
+void fragment(){
+	vec4 defcolor = texture(TEXTURE, UV);
+	float added = cos(TIME*time_mul)*0.5 +0.5;
+	defcolor.x = max(added, defcolor.x);
+	defcolor.y = max(added, defcolor.y);
+	defcolor.z = max(added, defcolor.z);
+	COLOR = defcolor;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/time_mul = 3.0

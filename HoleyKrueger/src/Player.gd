@@ -4,9 +4,12 @@ extends KinematicBody2D
 export (PackedScene) var Bullet;
 
 export var speed =800;
-const push_force = 900;
+export var acc = 8000;
+const push_force = 1200;
 const spade_damage = 3;
+const push = 100;
 var velocity;
+var acceleration;
 
 var hands;
 var handgun_shoot_finished = true;
@@ -20,32 +23,43 @@ var ammo = 0;
 var has_handgun = false;
 var handgun_ammo = 8;
 
+const ZERO = Vector2(0,0)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Camera2D.force_update_scroll()
 	$Camera2D.position= Vector2(0,0)
 	velocity = Vector2();
+	acceleration = Vector2();
 	select_spade()
 
 
 func _physics_process(delta):
-	velocity.x = 0;
-	velocity.y = 0;
+	acceleration.x = 0;
+	acceleration.y = 0;
 	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
+		acceleration.x += 1
 	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
+		acceleration.x -= 1
 	if Input.is_action_pressed("ui_up"):
-		velocity.y -= 1
+		acceleration.y -= 1
 	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
-	if velocity.length() > 0:
-		get_parent().desired_zoom = 1.1
-		velocity = velocity.normalized() * speed;
-	else:
-		get_parent().desired_zoom = 1.0
+		acceleration.y += 1
+	if acceleration.length_squared() > 0:
+		acceleration = acceleration.normalized() * acc*delta;
+	velocity.x *= 50*delta;
+	velocity.y *= 50*delta;
+	velocity.x += acceleration.x;
+	velocity.y += acceleration.y;
 	look_at(get_global_mouse_position());
-	velocity =move_and_slide(velocity);
+	velocity = move_and_slide(velocity, ZERO, false, 4, PI/4, false);
+	
+	for index in get_slide_count():
+		var collision = get_slide_collision(index)
+		if collision.collider.is_in_group("bodies"):
+			#collision.collider.apply_impulse(collision.position - collision.collider.position, -collision.normal * push)
+			collision.collider.apply_central_impulse(-collision.normal * push)
+	
 	if Input.is_action_just_pressed("k1"):
 		select_spade()
 	elif Input.is_action_just_pressed("k2"):
@@ -80,6 +94,8 @@ func select_spade():
 func select_handgun():
 	if has_handgun:
 		hands = "handgun"
+		$HitAnim.stop()
+		can_melee = true;
 		$AnimComplex.rotation_degrees = 142;
 		$AnimComplex/Spade.visible = false;
 		$AnimComplex/Handgun.visible = true;

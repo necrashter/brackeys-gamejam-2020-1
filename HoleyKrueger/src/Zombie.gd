@@ -47,8 +47,8 @@ func _physics_process(delta):
 			rotation = target_rotation#*0.25 + rotation*0.75
 			net_velo = velocity.rotated(rotation)
 	if push_velo.length_squared() > 0.1:
-		push_velo.x *= .92;
-		push_velo.y *= .92;
+		push_velo.x *= 55*delta;
+		push_velo.y *= 55*delta;
 		net_velo.x += push_velo.x
 		net_velo.y += push_velo.y
 	move_and_slide(net_velo)
@@ -85,6 +85,7 @@ func _on_Sense_body_entered(body):
 		victim = weakref(body);
 		$Area2D.get_overlapping_bodies().has(victim);
 		$AnimatedSprite.animation = "walk"
+		$AnimationPlayer.stop()
 		state = "chase";
 
 func get_hit(dmg):
@@ -116,8 +117,7 @@ func _on_AnimatedSprite_animation_finished():
 	if state == "attack":
 		if victim.get_ref():
 			if $Area2D.get_overlapping_bodies().has(victim.get_ref()):
-				victim.get_ref().get_hit(rand_range(2.0, 8.0));
-				$AnimatedSprite.play("attack");
+				$AttackTimer.start();
 			else:
 				state = "chase";
 				$AnimatedSprite.animation = "walk"
@@ -130,11 +130,18 @@ func _on_Area2D_body_entered(body):
 		return;
 	if body.is_in_group("zombie_meat"):
 		victim = weakref(body)
-		if push_velo.length_squared() <= 0.1:
-			body.get_hit(rand_range(2.0, 8.0));
-			$AnimatedSprite.play("attack")
+		$AttackTimer.start();
+		$AnimatedSprite.play("attack")
 		state = "attack";
-		
+
+
+func _on_Area2D_body_exited(body):
+	if victim and victim.get_ref():
+		if body == victim.get_ref() and state == "attack":
+			state = "chase"
+			$AnimatedSprite.animation = "walk"
+			$AttackTimer.stop()
+
 func push(vec):
 	push_velo = vec;
 
@@ -158,3 +165,9 @@ func _on_VisibilityNotifier2D_screen_exited():
 	for c in get_children():
 		c.set_process(false)
 		c.set_process_internal(false)
+
+
+func _on_AttackTimer_timeout():
+	if victim and victim.get_ref():
+		if $Area2D2.get_overlapping_bodies().has(victim.get_ref()):
+			victim.get_ref().get_hit(rand_range(2.0, 8.0));

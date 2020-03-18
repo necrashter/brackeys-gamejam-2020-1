@@ -176,7 +176,7 @@ rotation = 2.47837
 [node name="Torse" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
 frames = SubResource( 2 )
 animation = "breathe"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Spade" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
@@ -221,7 +221,6 @@ texture = ExtResource( 10 )
 
 [node name="Camera2D" type="Camera2D" parent="PlayerBody"]
 current = true
-zoom = Vector2( 2, 2 )
 limit_left = -5120
 limit_top = -5120
 limit_right = 5120

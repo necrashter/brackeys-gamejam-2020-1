@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/map/tileset1.tres" type="TileSet" id=1]
+[ext_resource path="res://gfx/tiles/TexturesCom_Grass0110_1_seamless_S.jpg" type="Texture" id=2]
+[ext_resource path="res://src/map/map_sketch3.gd" type="Script" id=3]
+[ext_resource path="res://src/map/shadow.tres" type="TileSet" id=12]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="TexturesCom_Grass0110_1_seamless_S" type="Sprite" parent="."]
+modulate = Color( 0.658824, 0.623529, 0.623529, 1 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 10240, 10240 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 128 )
+format = 1
+
+[node name="ShadowTiles" type="TileMap" parent="."]
+tile_set = ExtResource( 12 )
+cell_size = Vector2( 128, 128 )
+centered_textures = true
+format = 1
+
+[node name="WallTiles" type="TileMap" parent="."]
+z_index = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( 1900504, 4, 0, 1900505, 4, 0, 1900506, 4, 0, 1900507, 4, 0, 1900508, 4, 0, 1900509, 4, 0, 1900510, 4, 0, 1900511, 4, 0, 1900512, 4, 0, 1900513, 4, 0, 1900514, 4, 0, 1900515, 4, 0, 1900516, 4, 0, 1900517, 4, 0, 1900518, 4, 0, 1900519, 4, 0, 1900520, 4, 0, 1900521, 4, 0, 1900522, 4, 0, 1900523, 4, 0, 1900524, 4, 0, 1900525, 4, 0, 1900526, 4, 0, 1900527, 4, 0, 1900528, 4, 0, 1900529, 4, 0, 1900530, 4, 0, 1900531, 4, 0, 1900532, 4, 0, 1900533, 4, 0, 1900534, 4, 0, 1900535, 4, 0, 1900536, 4, 0, 1900537, 4, 0, 1900538, 4, 0, 1900539, 4, 0, 1900540, 4, 0, 1900541, 4, 0, 1900542, 4, 0, 1900543, 4, 0, 1835008, 4, 0, 1835009, 4, 0, 1835010, 4, 0, 1835011, 4, 0, 1835012, 4, 0, 1835013, 4, 0, 1835014, 4, 0, 1835015, 4, 0, 1835016, 4, 0, 1835017, 4, 0, 1835018, 4, 0, 1835019, 4, 0, 1835020, 4, 0, 1835021, 4, 0, 1835022, 4, 0, 1835023, 4, 0, 1835024, 4, 0, 1835025, 4, 0, 1835026, 4, 0, 1835027, 4, 0, 1835028, 4, 0, 1835029, 4, 0, 1835030, 4, 0, 1835031, 4, 0, 1835032, 4, 0, 1835033, 4, 0, 1835034, 4, 0, 1835035, 4, 0, 1835036, 4, 0, 1835037, 4, 0, 1835038, 4, 0, 1835039, 4, 0, 1835040, 4, 0, 1835041, 4, 0, 1835042, 4, 0, 1835043, 4, 0, 1835044, 4, 0, 1835045, 4, 0, 1835046, 4, 0, 1835047, 4, 0 )
+
+[node name="PlayerPos" type="Position2D" parent="."]
+position = Vector2( 20.1128, 4348.76 )

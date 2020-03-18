@@ -6,14 +6,19 @@ var in_underground;
 var overground;
 var underground;
 
+var Player = preload("res://src/Player.tscn");
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if $PlayerNode:
-		$PlayerNode/BlockSelector.tile_checker = self;
+	var player = Player.instance();
+	player.get_node("BlockSelector").tile_checker = self;
+	player.get_node("PlayerBody").position = $Node2D/PlayerPos.position;
+	player.connect("on_dig",self,"_on_PlayerNode_on_dig")
+	add_child(player)
 	in_underground = false;
 	overground = $Node2D
 	underground = UnderGround.instance();
-	underground.generate_room_map(40)
+	generate_map()
 	for x in range(-40,40):
 		for y in range(-40,40):
 			#else:
@@ -25,6 +30,9 @@ func _ready():
 			elif underground.get_node("TileMap").get_cell(x,y)==1:
 				overground.get_node("TileMap").set_cell(x,y,2);
 
+
+func generate_map():
+	underground.generate_room_map(40)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
