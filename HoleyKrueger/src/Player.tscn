@@ -137,7 +137,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 191.287
+radius = 169.383
 
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 20.0
@@ -155,6 +155,7 @@ stream = ExtResource( 69 )
 stream_paused = true
 
 [node name="PlayerBody" type="KinematicBody2D" parent="." groups=[
+"fragile",
 "player",
 "seer",
 "zombie_meat",
@@ -176,7 +177,7 @@ rotation = 2.47837
 [node name="Torse" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
 frames = SubResource( 2 )
 animation = "breathe"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Spade" type="AnimatedSprite" parent="PlayerBody/AnimComplex"]
@@ -248,7 +249,7 @@ attenuation = 1.10957
 position = Vector2( 300, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody/MeleeArea"]
-position = Vector2( -14.1351, 2.83016 )
+position = Vector2( -21.4146, 3.63899 )
 shape = SubResource( 7 )
 
 [node name="BlockArea" type="Area2D" parent="PlayerBody"]

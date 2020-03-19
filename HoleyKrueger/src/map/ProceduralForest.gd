@@ -1,29 +1,94 @@
 extends "res://src/map/map_sketch3.gd"
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 export (PackedScene) var Tree;
-var Gun = load("res://src/items/Pistol.tscn");
-var Holizard = load("res://src/Holizard.tscn")
+const Gun = preload("res://src/items/Pistol.tscn");
+const Holizard = preload("res://src/Holizard.tscn")
 
 var randoms = [Gun, Holizard]
 
 func _ready():
+	var rooms = generate_room_map(10)
 	for i in range(200 + (randi()%200)):
 		var tree = Tree.instance();
-		tree.position.x = (randi() %10240 - 5120)
-		tree.position.y = (randi() %10240 - 5120)
+		tree.position = random_pos_outside(rooms)
 		add_child(tree)
 		
 		if randi()%2:
 			var ee = randoms[randi()%randoms.size()].instance();
 			ee.position = tree.position;
 			add_child(ee);
+	$PlayerPos.position = random_pos_outside(rooms)
+	$Portal.next_scene = load("res://src/map/BossArenaSniper.tscn")
+	$Portal.position = random_pos_outside(rooms)
+	$Portal.portal_name = "SNIPER BOSS ARENA"
 
+func make_room(room):
+	for i in range(room.size.x):
+		$ShadowTiles.set_cell(room.position.x+i, room.position.y, 0);
+		$WallTiles.set_cell(room.position.x+i, room.position.y, 4);
+		$ShadowTiles.set_cell(room.position.x+i, room.position.y+room.size.y-1, 0);
+		$WallTiles.set_cell(room.position.x+i, room.position.y+room.size.y-1, 4);
+		for j in range(room.size.y):
+			$TileMap.set_cell(room.position.x+i, room.position.y+j, 3);
+	for j in range(room.size.y):
+		$ShadowTiles.set_cell(room.position.x, room.position.y+j, 0);
+		$WallTiles.set_cell(room.position.x, room.position.y+j, 4);
+		$ShadowTiles.set_cell(room.position.x+room.size.x-1, room.position.y+j, 0);
+		$WallTiles.set_cell(room.position.x+room.size.x-1, room.position.y+j, 4);
+	if false : #randi()%2:
+		# select a random tile and make it dirt
+		var x = room.position.x+1 + (randi()%int(room.size.x-2))
+		var y = room.position.y+1 + (randi()%int(room.size.y-2))
+		$TileMap.set_cell(x,y, -1);
+	else:
+		# select a random edge tile, and remove the wall
+		var x
+		var y
+		if randi()%2:
+			x = room.position.x+1 + (randi()%int(room.size.x-2))
+			y  = room.position.y if randi()%2 else room.position.y+room.size.y-1
+		else:
+			x = room.position.x if randi()%2 else room.position.x+room.size.x-1
+			y  = room.position.y+1 + (randi()%int(room.size.y-2))
+		$ShadowTiles.set_cell(x,y,-1);
+		$WallTiles.set_cell(x,y,-1);
+	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func populate_room(room):
+	pass
+
+func generate_room_map(max_rooms):
+	var rooms = []
+	var real_rooms = [] # rooms in real coordinates
+	for i in range(max_rooms):
+		var room = Rect2(
+			(randi() % 80) -40,
+			(randi() % 80) -40,
+			randi()%5 + 4,
+			randi()%5 + 4
+		);
+		var invalid = false;
+		for other in rooms:
+			if room.intersects(other):
+				invalid = true;
+				break;
+		if invalid:
+			continue;
+		make_room(room);
+		populate_room(room)
+		real_rooms.append(Rect2(room.position*128, room.size*128))
+		room.position.x -= 1
+		room.position.y -= 1
+		room.size.x += 2
+		room.size.y += 2
+		rooms.append(room)
+	return real_rooms
+
+func random_pos_outside(rooms):
+	var vec = Vector2()
+	vec.x = (randi() %10240 - 5120)
+	vec.y = (randi() %10240 - 5120)
+	for room in rooms:
+		if room.has_point(vec):
+			return random_pos_outside(rooms)
+	return vec

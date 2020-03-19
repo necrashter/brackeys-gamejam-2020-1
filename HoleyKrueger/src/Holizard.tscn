@@ -170,7 +170,7 @@ rotation = 1.39626
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 1 )
 animation = "attack"
-frame = 23
+frame = 17
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -230,7 +230,7 @@ __meta__ = {
 }
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.142
 one_shot = true
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="body_entered" from="Sense" to="." method="_on_Sense_body_entered"]

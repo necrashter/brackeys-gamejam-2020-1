@@ -25,6 +25,8 @@ var handgun_ammo = 8;
 
 const ZERO = Vector2(0,0)
 
+var next_scene;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Camera2D.force_update_scroll()
@@ -72,13 +74,19 @@ func _physics_process(delta):
 		if Input.is_mouse_button_pressed(1) and handgun_shoot_finished:
 			if handgun_ammo >0:
 				shoot_bullet()
-			#else: #play empty sound?
+			else: #play empty sound?
+				$AnimComplex/Handgun.play("reload")
+				$ReloadSound.play()
+				handgun_shoot_finished = false;
 		elif Input.is_action_just_pressed("reload"):
 			$AnimComplex/Handgun.play("reload")
 			$ReloadSound.play()
 			handgun_shoot_finished = false;
-	if Input.is_action_just_pressed("go_up") and nearby_holes>0:
-		get_tree().get_root().get_node("Combined").change_scene();
+	if Input.is_action_just_pressed("go_up"):
+		if next_scene:
+			get_node("/root/global").goto_scene(next_scene)
+		elif nearby_holes>0:
+			get_tree().get_current_scene().change_scene();
 
 func select_spade():
 	hands = "spade"
@@ -110,6 +118,8 @@ func spade_melee():
 	if can_melee and !is_blocked():
 		$HitAnim.play("hit");
 		for body in $MeleeArea.get_overlapping_bodies():
+			if body == self:
+				continue
 			if body.is_in_group("fragile"):
 				body.get_hit(spade_damage)
 			if body.is_in_group("pushable"):
@@ -173,3 +183,13 @@ func is_blocked():
 
 func _on_HitAnim_animation_finished(anim_name):
 	can_melee = true;
+
+
+func portal_enter(next, portal_name):
+	next_scene = next
+	$HUD.message("PRESS SPACE TO JUMP TO %s"%portal_name)
+
+
+func portal_exit(next, portal_name):
+	next_scene = null
+	$HUD.clear_message()

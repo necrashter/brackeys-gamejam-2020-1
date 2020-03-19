@@ -5,6 +5,7 @@ const TS = [0,1]
 const Holizard=  preload("res://src/Holizard.tscn")
 const Pistol =   preload("res://src/items/Pistol.tscn")
 const Bandage =   preload("res://src/items/Bandage.tscn")
+const Box =   preload("res://src/items/Box.tscn")
 
 func generate_map():
 	for x in range(-40,40):
@@ -34,6 +35,12 @@ func make_room(room):
 			$ShadowTiles.set_cell(room.position.x+i, room.position.y+j, -1);
 			$TileMap.set_cell(room.position.x+i, room.position.y+j, -1);
 
+func populate_room0(room):
+	for i in range(1+(randi()%2)):
+		var x = room.position.x + randi()%int(room.size.x)
+		var y = room.position.y + randi()%int(room.size.y)
+		spawn_box(x,y)
+
 func generate_room_map(max_rooms):
 	fill_with_dirt();
 	var rooms = []
@@ -52,6 +59,7 @@ func generate_room_map(max_rooms):
 		if invalid:
 			continue;
 		make_room(room);
+		populate_room0(room)
 		
 
 func spawn_holizard(x,y):
@@ -68,6 +76,13 @@ func spawn_pistol(x,y):
 
 func spawn_bandage(x,y):
 	var holizard = Bandage.instance();
+	holizard.position.x = 128*x + 64;
+	holizard.position.y = 128*y + 64;
+	add_child(holizard)
+	
+
+func spawn_box(x,y):
+	var holizard = Box.instance();
 	holizard.position.x = 128*x + 64;
 	holizard.position.y = 128*y + 64;
 	add_child(holizard)

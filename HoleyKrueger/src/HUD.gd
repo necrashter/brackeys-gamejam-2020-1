@@ -17,7 +17,14 @@ func update_ammo(ammo, total):
 	$AmmoLabel.text = "AMMO: "+str(ammo)+"/"+str(total);
 
 func update_health(hp):
-	$HealthLabel.text = "HEALTH: "+str(hp);
+	$HealthLabel.text = "HP: "+str(round(hp));
+	$HPBar.value = hp
 	
 func update_kills(kills):
 	$KillLabel.text =  "KILLS: "+str(kills);
+	
+func message(text):
+	$BottomLabel.text = text
+
+func clear_message():
+	$BottomLabel.text = ""

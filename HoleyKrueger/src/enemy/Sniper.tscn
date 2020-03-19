@@ -6,19 +6,23 @@
 [ext_resource path="res://sfx/laser.wav" type="AudioStream" id=4]
 [ext_resource path="res://src/Bullet.tscn" type="PackedScene" id=5]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 139.474
-height = 583.926
+[sub_resource type="CircleShape2D" id=1]
+radius = 213.5
 
-[node name="Sniper" type="KinematicBody2D"]
+[node name="Sniper" type="KinematicBody2D" groups=[
+"fragile",
+]]
+scale = Vector2( 0.3, 0.3 )
+z_index = 10
 script = ExtResource( 2 )
 Bullet = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 23.894, -24.5919 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 239.627, -24.8875 )
+rotation = 1.5708
 texture = ExtResource( 1 )
 
 [node name="Laser" parent="." instance=ExtResource( 3 )]
@@ -26,4 +30,5 @@ texture = ExtResource( 1 )
 [node name="LaserSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 
-[node name="Bullet" parent="." instance=ExtResource( 5 )]
+[node name="BarrelPos" type="Position2D" parent="."]
+position = Vector2( 698.218, 31.7336 )

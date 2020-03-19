@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/map/tileset1.tres" type="TileSet" id=1]
 [ext_resource path="res://gfx/tiles/TexturesCom_Grass0110_1_seamless_S.jpg" type="Texture" id=2]
 [ext_resource path="res://src/map/ProceduralForest.gd" type="Script" id=3]
 [ext_resource path="res://src/map/Hole.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/map/Portal.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Tree.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/map/shadow.tres" type="TileSet" id=12]
 
@@ -34,3 +35,7 @@ z_index = 1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 128, 128 )
 format = 1
+
+[node name="PlayerPos" type="Position2D" parent="."]
+
+[node name="Portal" parent="." instance=ExtResource( 5 )]

@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/map/tileset1.tres" type="TileSet" id=1]
 [ext_resource path="res://gfx/tiles/TexturesCom_Grass0110_1_seamless_S.jpg" type="Texture" id=2]
 [ext_resource path="res://src/map/map_sketch3.gd" type="Script" id=3]
-[ext_resource path="res://src/enemy/Sniper.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/map/shadow.tres" type="TileSet" id=12]
 
 [node name="Node2D" type="Node2D"]
@@ -35,7 +34,3 @@ tile_data = PoolIntArray( 1900504, 4, 0, 1900505, 4, 0, 1900506, 4, 0, 1900507, 
 
 [node name="PlayerPos" type="Position2D" parent="."]
 position = Vector2( 20.1128, 4348.76 )
-
-[node name="KinematicBody2D" parent="." instance=ExtResource( 4 )]
-position = Vector2( 2015.36, 4651.78 )
-scale = Vector2( 0.3, 0.3 )

@@ -19,6 +19,10 @@ config/name="HoleyKrueger"
 run/main_scene="res://src/map/ProceduralCombined.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+global="*res://global.gd"
+
 [display]
 
 window/size/fullscreen=true
