@@ -45,10 +45,10 @@ position = Vector2( 0, 900 )
 shape = SubResource( 1 )
 
 [node name="SniperPos0" type="Position2D" parent="."]
-position = Vector2( -8.85205, 1637.64 )
+position = Vector2( 8.85217, 300.972 )
 
 [node name="SniperPos1" type="Position2D" parent="."]
-position = Vector2( 1071.11, 1040.12 )
+position = Vector2( 8.85742, 659.48 )
 
 [node name="SniperPos2" type="Position2D" parent="."]
 position = Vector2( 4.42627, 424.901 )
