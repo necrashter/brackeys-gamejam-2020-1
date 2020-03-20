@@ -4,9 +4,11 @@ signal die;
 
 const Holizard = preload("res://src/SniperHolizard.tscn")
 
-export var hp=300;
+export var hp=150;
 export var shieldHp=15;
 export var constBulletNumber=3;
+export var phase2Hp=75;
+export var finalHp=10;
 
 export (PackedScene) var Bullet;
 
@@ -98,13 +100,36 @@ func rand_teleport():
 	# we can also experiment with random positions within arena
 
 func shoot():
-	if 1:
-		#$AnimationPlayer.play("shoot")
-		bulletNo-=1;
-		$LaserSound.play()
+	#$AnimationPlayer.play("shoot")
+	$LaserSound.play()
+	if phase==1:
+		shoot_1();
+	#elif hp<=finalHp:
+	#	shoot_360(36);
+	elif phase==2:
+		shoot_3();
+
+func shoot_1():
+	var bullet = Bullet.instance();
+	bullet.shoot($BarrelPos.get_global_transform().get_origin(), rotation)
+	get_tree().get_root().add_child(bullet);
+func shoot_3():
+	var bullet = Bullet.instance();
+	bullet.shoot($BarrelPos.get_global_transform().get_origin(), rotation)
+	get_tree().get_root().add_child(bullet);
+	var bullet2 = Bullet.instance();
+	bullet2.shoot($BarrelPos.get_global_transform().get_origin(), rotation+PI/3)
+	get_tree().get_root().add_child(bullet2);
+	var bullet3 = Bullet.instance();
+	bullet3.shoot($BarrelPos.get_global_transform().get_origin(), rotation-PI/3)
+	get_tree().get_root().add_child(bullet3);
+	
+func shoot_360(number):
+	for i in range(number):
 		var bullet = Bullet.instance();
-		bullet.shoot($BarrelPos.get_global_transform().get_origin(), rotation)
+		bullet.shoot($BarrelPos.get_global_transform().get_origin(), i*( (2*PI) /number));
 		get_tree().get_root().add_child(bullet);
+
 
 func step_forward():
 	velocity = step_speed.rotated(rotation)
@@ -117,11 +142,14 @@ func step_sideways():
 # physics process is always called with constant delta, unlike _process
 func _physics_process(delta):
 	if target.get_ref(): #if player is alive
+		if (phase==1 and hp<=phase2Hp):
+			next_phase();
 		var distance_between =  position.distance_to(target.get_ref().position)/4000
 		look_at(target.get_ref().get_next_position(distance_between))
 		# a timer might be more appropriate for this
 		var time = music.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
-		$Label.text = str(time);
+		#$Label.text = str(time);
+		$Label.text = str(hp);
 		$StateMachine.update(time);
 		#if x%40==0:
 		#	if  abs(position.y-get_tree().get_current_scene().player.get_node("PlayerBody").position.y)<=200 or abs(position.x-get_tree().get_current_scene().player.get_node("PlayerBody") .position.x)<=400 :

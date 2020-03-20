@@ -7,8 +7,8 @@
 [ext_resource path="res://src/Bullet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/HUD_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://src/enemy/StateMachine.gd" type="Script" id=7]
-[ext_resource path="res://src/enemy/Verse0.gd" type="Script" id=8]
-[ext_resource path="res://src/enemy/Spawner0.gd" type="Script" id=9]
+[ext_resource path="res://src/enemy/Spawner0Angry.gd" type="Script" id=8]
+[ext_resource path="res://src/enemy/Verse0angry.gd" type="Script" id=9]
 [ext_resource path="res://gfx/sphere.png" type="Texture" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -57,10 +57,16 @@ __meta__ = {
 script = ExtResource( 7 )
 
 [node name="Verse0" type="Node" parent="StateMachine"]
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 
 [node name="Spawner0" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+
+[node name="Verse0Angry" type="Node" parent="StateMachine"]
 script = ExtResource( 9 )
+
+[node name="Spawner0Angry" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
 
 [node name="Shield" type="Sprite" parent="."]
 visible = false

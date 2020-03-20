@@ -6,13 +6,23 @@ const transitionTimes = [0.0, 16.0]
 var states_map;
 var current_state;
 var next_index = 0
+var states_map_phase1;
+var states_map_phase2;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	states_map = {
+	states_map_phase1 = {
 		"verse0" : $Verse0,
 		"spawner0": $Spawner0,
 	}
+	states_map_phase2 = {
+		"verse0" : $Verse0Angry,
+		"spawner0": $Spawner0Angry,
+	}
+	if get_parent().phase==1:
+		states_map=states_map_phase1
+	else:
+		states_map=states_map_phase2
 	set_state(states[0])
 	next_index = 1
 
