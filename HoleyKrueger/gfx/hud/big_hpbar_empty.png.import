@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/1.png-7f13f4843d27c65af867a130fb4a98cc.stex"
+path="res://.import/big_hpbar_empty.png-8ec3964326d4759776114a589e63c099.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/Topdown_vehicle_sprites_pack/ambulance_animation/1.png"
-dest_files=[ "res://.import/1.png-7f13f4843d27c65af867a130fb4a98cc.stex" ]
+source_file="res://gfx/hud/big_hpbar_empty.png"
+dest_files=[ "res://.import/big_hpbar_empty.png-8ec3964326d4759776114a589e63c099.stex" ]
 
 [params]
 

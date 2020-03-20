@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Audi.png-a76f7a099408a9f6308aae5366ecdfd6.stex"
+path="res://.import/big_hpbar_full.png-df49bf7006561985f6ef9b7a2bcd5c30.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/objects/Audi.png"
-dest_files=[ "res://.import/Audi.png-a76f7a099408a9f6308aae5366ecdfd6.stex" ]
+source_file="res://gfx/hud/big_hpbar_full.png"
+dest_files=[ "res://.import/big_hpbar_full.png-df49bf7006561985f6ef9b7a2bcd5c30.stex" ]
 
 [params]
 

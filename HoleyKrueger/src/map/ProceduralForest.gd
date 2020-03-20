@@ -3,8 +3,10 @@ extends "res://src/map/map_sketch3.gd"
 export (PackedScene) var Tree;
 const Gun = preload("res://src/items/Pistol.tscn");
 const Holizard = preload("res://src/Holizard.tscn")
+const Bandage =   preload("res://src/items/Bandage.tscn")
+const Box =   preload("res://src/items/Box.tscn")
 
-var randoms = [Gun, Holizard]
+var randoms = [Gun]
 
 func _ready():
 	var rooms = generate_room_map(10)
@@ -13,13 +15,17 @@ func _ready():
 		tree.position = random_pos_outside(rooms)
 		add_child(tree)
 		
-		if randi()%2:
+		if randi()%5==0:
 			var ee = randoms[randi()%randoms.size()].instance();
+			ee.position = tree.position;
+			add_child(ee);
+		elif randi()%5:
+			var ee = Holizard.instance();
 			ee.position = tree.position;
 			add_child(ee);
 	$PlayerPos.position = random_pos_outside(rooms)
 	$Portal.next_scene = load("res://src/map/BossArenaSniper.tscn")
-	$Portal.position = random_pos_outside(rooms)
+	#$Portal.position = random_pos_outside(rooms)
 	$Portal.portal_name = "SNIPER BOSS ARENA"
 
 func make_room(room):
@@ -54,28 +60,22 @@ func make_room(room):
 		$WallTiles.set_cell(x,y,-1);
 	
 
-func populate_room(room):
-	pass
+func populate_room(room,i):
+	match i:
+		0:
+			$Portal.position = random_pos_in(room)
+		_:
+			var box = Box.instance()
+			box.position = random_pos_in(room)
+			add_child(box)
 
 func generate_room_map(max_rooms):
 	var rooms = []
 	var real_rooms = [] # rooms in real coordinates
 	for i in range(max_rooms):
-		var room = Rect2(
-			(randi() % 80) -40,
-			(randi() % 80) -40,
-			randi()%5 + 4,
-			randi()%5 + 4
-		);
-		var invalid = false;
-		for other in rooms:
-			if room.intersects(other):
-				invalid = true;
-				break;
-		if invalid:
-			continue;
+		var room = random_room_rect(rooms)
 		make_room(room);
-		populate_room(room)
+		populate_room(room, i)
 		real_rooms.append(Rect2(room.position*128, room.size*128))
 		room.position.x -= 1
 		room.position.y -= 1
@@ -83,6 +83,22 @@ func generate_room_map(max_rooms):
 		room.size.y += 2
 		rooms.append(room)
 	return real_rooms
+
+func random_room_rect(rooms):
+	var room = Rect2(
+		(randi() % 80) -40,
+		(randi() % 80) -40,
+		randi()%5 + 4,
+		randi()%5 + 4
+	);
+	var invalid = false;
+	for other in rooms:
+		if room.intersects(other):
+			invalid = true;
+			break;
+	if invalid:
+		return random_room_rect(rooms)
+	return room
 
 func random_pos_outside(rooms):
 	var vec = Vector2()
@@ -92,3 +108,12 @@ func random_pos_outside(rooms):
 		if room.has_point(vec):
 			return random_pos_outside(rooms)
 	return vec
+
+func random_pos_in(room):
+	var out =  Vector2(
+		room.position.x +1 + randi()%int(room.size.x-2),
+		room.position.y +1 + randi()%int(room.size.y-2)
+	)*128
+	out.x += 64
+	out.y += 64
+	return out

@@ -24,8 +24,9 @@ func beginBoss():
 	$ShadowTiles.set_cell(-1,17,0)
 	var sniper = SniperBoss.instance()
 	sniper.position = $SniperPos0.position
+	sniper.music = $BossMusic;
 	add_child(sniper)
-	# TODO: add boss music
+	$BossMusic.play();
 
 
 func _on_ArenaArea_body_entered(body):

@@ -18,5 +18,5 @@ func _ready():
 
 func _on_Pistol_body_entered(body):
 	if body.is_in_group("zombie_meat"):
-		body.give_ammo(10)
+		body.give_ammo(7)
 		queue_free()

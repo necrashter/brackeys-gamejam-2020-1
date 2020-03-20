@@ -64,7 +64,7 @@
 [ext_resource path="res://gfx/enemies/holizard/idle/0056.png" type="Texture" id=62]
 [ext_resource path="res://gfx/enemies/holizard/idle/0057.png" type="Texture" id=63]
 [ext_resource path="res://gfx/enemies/holizard/idle/0058.png" type="Texture" id=64]
-[ext_resource path="res://src/Zombie.gd" type="Script" id=65]
+[ext_resource path="res://src/SniperHolizard.gd" type="Script" id=65]
 [ext_resource path="res://gfx/enemies/holizard/idle/0059.png" type="Texture" id=66]
 [ext_resource path="res://gfx/enemies/holizard/idle/0060.png" type="Texture" id=67]
 [ext_resource path="res://gfx/enemies/holizard/attack/0001.png" type="Texture" id=68]
@@ -160,7 +160,6 @@ rotation = 0.15708
 scale = Vector2( 1.2, 1.2 )
 z_index = 10
 script = ExtResource( 65 )
-speed = 550
 
 [node name="Shadow" type="Sprite" parent="."]
 scale = Vector2( 0.2, 0.2 )
@@ -171,7 +170,7 @@ rotation = 1.39626
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 1 )
 animation = "attack"
-frame = 11
+frame = 24
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -213,11 +212,6 @@ shape = SubResource( 5 )
 [node name="PainNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 114 )
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-position = Vector2( -55.2841, -0.726036 )
-rotation = -0.158825
-rect = Rect2( -10, -10, 110, 40 )
-
 [node name="Label" type="Label" parent="."]
 margin_left = -53.0
 margin_top = -50.0
@@ -239,6 +233,4 @@ one_shot = true
 [connection signal="timeout" from="BoredTimer" to="." method="_on_BoredTimer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D2" to="." method="_on_Area2D_body_exited"]
-[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
-[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

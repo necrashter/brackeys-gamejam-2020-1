@@ -19,13 +19,15 @@ var nearby_holes =0;
 
 var hp = 100;
 
-var ammo = 0;
-var has_handgun = false;
+var ammo = 100;
+var has_handgun = true;
 var handgun_ammo = 8;
 
 const ZERO = Vector2(0,0)
 
 var next_scene;
+
+var desiredZoom=1.0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,6 +37,13 @@ func _ready():
 	acceleration = Vector2();
 	select_spade()
 
+func _process(delta):
+	if has_node("Camera2D"):
+		$Camera2D.zoom.x = ($Camera2D.zoom.x)*0.75 + desiredZoom*0.25
+		$Camera2D.zoom.y = ($Camera2D.zoom.y)*0.75 + desiredZoom*0.25
+
+func get_next_position(time):
+	return position + (velocity*time)
 
 func _physics_process(delta):
 	acceleration.x = 0;
