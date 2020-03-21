@@ -2,6 +2,11 @@ extends "res://src/map/UnderGroundSketch.gd"
 
 var battle_started = false;
 const SniperBoss = preload("res://src/enemy/Sniper.tscn")
+const Holizard = preload("res://src/SniperHolizard.tscn")
+
+const Bandage =   preload("res://src/items/Bandage.tscn")
+
+var sniper;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,7 +19,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
+func endBoss():
+	pass
 
 func beginBoss():
 	battle_started = true
@@ -22,12 +28,33 @@ func beginBoss():
 	$TileMap.set_cell(-1, 17, 1)
 	$ShadowTiles.set_cell(0,17,0)
 	$ShadowTiles.set_cell(-1,17,0)
-	var sniper = SniperBoss.instance()
+	sniper = SniperBoss.instance()
 	sniper.position = $SniperPos0.position
 	sniper.music = $BossMusic;
+	sniper.connect("die", self, "endBoss");
+	sniper.get_node("StateMachine").connect("phase_up", self, "switchPhase");
 	add_child(sniper)
-	$BossMusic.play();
+	$BossMusic.play()
+	$BossMusic2.play()
 
+func switchPhase():
+	$BossMusic.volume_db = -80
+	$BossMusic2.volume_db = 0
+	# set sniper.music = $BossMusic2 ?
+
+func spawn_holizard(pos, target ):
+	var h=Holizard.instance();
+	h.position= pos
+	if target.get_ref():
+		h._on_Sense_body_entered(target.get_ref());
+	h.connect("die", self, "holizard_death");
+	add_child(h);
+
+func holizard_death(pos):
+	if randi()%4==0:
+		var b = Bandage.instance()
+		b.position = pos
+		add_child(b)
 
 func _on_ArenaArea_body_entered(body):
 	if body.is_in_group("player"):

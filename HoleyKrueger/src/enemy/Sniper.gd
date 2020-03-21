@@ -2,12 +2,10 @@ extends KinematicBody2D
 
 signal die;
 
-const Holizard = preload("res://src/SniperHolizard.tscn")
-
-export var hp=150;
+export var hp=300;
 export var shieldHp=15;
 export var constBulletNumber=3;
-export var phase2Hp=75;
+export var phase2Hp=125;
 export var finalHp=10;
 
 export (PackedScene) var Bullet;
@@ -33,22 +31,8 @@ var music;
 
 func next_phase():
 	phase=2;
-
-
-func start_fire():
-	state = "fire"; #dont move , fire 3 times
-
-
-func start_reload():
-	state = "reload"; #run away from player, if stuck then teleport
-	if phase==2:
-		spawn_holizard(2);
-	$ReloadTimer.start();
-	bulletNo=constBulletNumber;
-	
-func _on_ReloadTimer_timeout():
-	start_fire();
-
+	$Label.text = "PHASE 2 BOSS"
+	$StateMachine.phase_up()
 
 
 func get_hit(dmg):
@@ -72,11 +56,7 @@ func _ready():
 
 func spawn_holizard(number):
 	for i in number:
-		var h=Holizard.instance();
-		h.position= $BarrelPos.get_global_transform().get_origin()
-		if target.get_ref():
-			h._on_Sense_body_entered(target.get_ref());
-		get_tree().get_current_scene().add_child(h);
+		get_parent().spawn_holizard($BarrelPos.get_global_transform().get_origin(),target)
 
 func reshield():
 	shield=shieldHp
@@ -99,21 +79,18 @@ func rand_teleport():
 	position = get_parent().get_node("SniperPos%d"%(randi()%4)).position
 	# we can also experiment with random positions within arena
 
-func shoot():
-	#$AnimationPlayer.play("shoot")
+func preshoot():
 	$LaserSound.play()
-	if phase==1:
-		shoot_1();
-	#elif hp<=finalHp:
-	#	shoot_360(36);
-	elif phase==2:
-		shoot_3();
+	$AnimatedSprite.play("shoot")
 
 func shoot_1():
+	preshoot()
 	var bullet = Bullet.instance();
 	bullet.shoot($BarrelPos.get_global_transform().get_origin(), rotation)
 	get_tree().get_root().add_child(bullet);
+
 func shoot_3():
+	preshoot()
 	var bullet = Bullet.instance();
 	bullet.shoot($BarrelPos.get_global_transform().get_origin(), rotation)
 	get_tree().get_root().add_child(bullet);
@@ -149,7 +126,6 @@ func _physics_process(delta):
 		# a timer might be more appropriate for this
 		var time = music.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
 		#$Label.text = str(time);
-		$Label.text = str(hp);
 		$StateMachine.update(time);
 		#if x%40==0:
 		#	if  abs(position.y-get_tree().get_current_scene().player.get_node("PlayerBody").position.y)<=200 or abs(position.x-get_tree().get_current_scene().player.get_node("PlayerBody") .position.x)<=400 :
@@ -161,3 +137,15 @@ func die():
 	emit_signal("die")
 	if target.get_ref():
 		target.get_ref().desiredZoom = 1.0;
+
+func _on_AnimatedSprite_animation_finished():
+	if $AnimatedSprite.animation == "shoot":
+		$AnimatedSprite.animation = "default"
+		$AnimatedSprite.playing = false;
+
+func start_magic():
+	$AnimatedSprite.play("magic")
+	
+func stop_anim():
+	$AnimatedSprite.animation = "default"
+	$AnimatedSprite.playing = false;

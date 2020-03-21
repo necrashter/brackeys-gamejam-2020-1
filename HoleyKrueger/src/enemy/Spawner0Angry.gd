@@ -1,6 +1,6 @@
 extends Node
 
-const spawnTimes = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+const spawnTimes = [0.0, 2.0, 4.0, 6.0]
 var spawnIndex = 0
 const shieldTime = 0.0
 var shielded = false
@@ -8,6 +8,7 @@ var shielded = false
 func start():
 	spawnIndex = 0
 	shielded = false
+	owner.start_magic();
 	
 func update(time):
 	time = fmod(time, 8.0)

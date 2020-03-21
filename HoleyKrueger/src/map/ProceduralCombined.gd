@@ -3,7 +3,7 @@ extends "res://Comb.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	underground.generate_room_map(40)
+	underground.generate_room_map(50)
 	sync_maps()
 
 

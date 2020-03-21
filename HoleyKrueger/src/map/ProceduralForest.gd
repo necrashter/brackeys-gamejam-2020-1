@@ -9,7 +9,7 @@ const Box =   preload("res://src/items/Box.tscn")
 var randoms = [Gun]
 
 func _ready():
-	var rooms = generate_room_map(10)
+	var rooms = generate_room_map(15)
 	for i in range(200 + (randi()%200)):
 		var tree = Tree.instance();
 		tree.position = random_pos_outside(rooms)
@@ -21,6 +21,7 @@ func _ready():
 			add_child(ee);
 		elif randi()%5:
 			var ee = Holizard.instance();
+			ee.connect("die", self, "holizard_death")
 			ee.position = tree.position;
 			add_child(ee);
 	$PlayerPos.position = random_pos_outside(rooms)
@@ -41,7 +42,7 @@ func make_room(room):
 		$WallTiles.set_cell(room.position.x, room.position.y+j, 4);
 		$ShadowTiles.set_cell(room.position.x+room.size.x-1, room.position.y+j, 0);
 		$WallTiles.set_cell(room.position.x+room.size.x-1, room.position.y+j, 4);
-	if false : #randi()%2:
+	if randi()%2==0:
 		# select a random tile and make it dirt
 		var x = room.position.x+1 + (randi()%int(room.size.x-2))
 		var y = room.position.y+1 + (randi()%int(room.size.y-2))
@@ -109,6 +110,7 @@ func random_pos_outside(rooms):
 			return random_pos_outside(rooms)
 	return vec
 
+
 func random_pos_in(room):
 	var out =  Vector2(
 		room.position.x +1 + randi()%int(room.size.x-2),
@@ -117,3 +119,9 @@ func random_pos_in(room):
 	out.x += 64
 	out.y += 64
 	return out
+
+func holizard_death(pos):
+	if randi()%6==0:
+		var b = Bandage.instance()
+		b.position = pos
+		add_child(b)

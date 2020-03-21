@@ -12,6 +12,7 @@ func start():
 	shootIndex = 0
 	teleportIndex = 0
 	teleported = false
+	owner.stop_anim()
 
 func update(time):
 	time = fmod(time, 8.0)
@@ -24,7 +25,7 @@ func update(time):
 	if abs(time - shootTimes[shootIndex]) <0.08:
 		# owner refers to the node that this node is saved along with
 		# in this case, it is Sniper
-		owner.shoot();
+		owner.shoot_1();
 		shootIndex = (shootIndex+1)%shootTimes.size();
 	if abs(time - teleportTimes[teleportIndex]) < 0.08:
 		if randi()%2:

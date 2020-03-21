@@ -72,7 +72,7 @@ func can_dig(pos):
 
 
 func box_broken(position):
-	var entity = Bandage.instance();
+	var entity = (Bandage if randi()%2==0 else Pistol).instance();
 	entity.position = position
 	if in_underground:
 		underground.add_child(entity)

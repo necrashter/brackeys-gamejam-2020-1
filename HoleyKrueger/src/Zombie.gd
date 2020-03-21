@@ -4,7 +4,7 @@ signal shot;
 signal die(position)
 
 export var speed = 500;
-export var hp = 10;
+export var hp = 8;
 
 var state;
 var velocity = Vector2();
@@ -53,12 +53,6 @@ func _physics_process(delta):
 		net_velo.y += push_velo.y
 	move_and_slide(net_velo)
 
-func _process(delta):
-	if state:
-		$Label.text = state;
-	else:
-		$Label.text = "NULL"
-
 func rand_turn():
 	turn_anim = Animation.new();
 	turn_anim.add_track(0)
@@ -99,7 +93,7 @@ func get_hit(dmg):
 		die()
 
 func die():
-	emit_signal("die", position);
+	call_deferred("emit_signal", "die", position);
 	#var spr = get_node("AnimatedSprite");
 	#remove_child(spr);
 	#get_parent().add_child(spr);

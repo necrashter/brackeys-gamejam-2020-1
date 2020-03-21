@@ -8,6 +8,7 @@ var shielded = false
 func start():
 	spawnIndex = 0
 	shielded = false
+	owner.start_magic();
 	
 func update(time):
 	time = fmod(time, 8.0)

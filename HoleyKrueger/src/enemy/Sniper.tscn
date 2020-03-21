@@ -1,6 +1,5 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=97 format=2]
 
-[ext_resource path="res://gfx/enemies/sniper.png" type="Texture" id=1]
 [ext_resource path="res://src/enemy/Sniper.gd" type="Script" id=2]
 [ext_resource path="res://src/BossBar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://sfx/laser.wav" type="AudioStream" id=4]
@@ -10,11 +9,113 @@
 [ext_resource path="res://src/enemy/Spawner0Angry.gd" type="Script" id=8]
 [ext_resource path="res://src/enemy/Verse0angry.gd" type="Script" id=9]
 [ext_resource path="res://gfx/sphere.png" type="Texture" id=10]
+[ext_resource path="res://src/enemy/Verse0.gd" type="Script" id=11]
+[ext_resource path="res://src/enemy/Spawner0.gd" type="Script" id=12]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0004.png" type="Texture" id=13]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0000.png" type="Texture" id=14]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0001.png" type="Texture" id=15]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0002.png" type="Texture" id=16]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0003.png" type="Texture" id=17]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0001.png" type="Texture" id=18]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0002.png" type="Texture" id=19]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0005.png" type="Texture" id=20]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0007.png" type="Texture" id=21]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0006.png" type="Texture" id=22]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0008.png" type="Texture" id=23]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0009.png" type="Texture" id=24]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0010.png" type="Texture" id=25]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0004.png" type="Texture" id=26]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0003.png" type="Texture" id=27]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0000.png" type="Texture" id=28]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0005.png" type="Texture" id=29]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0006.png" type="Texture" id=30]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0007.png" type="Texture" id=31]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0019.png" type="Texture" id=32]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0018.png" type="Texture" id=33]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0021.png" type="Texture" id=34]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0020.png" type="Texture" id=35]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0022.png" type="Texture" id=36]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0023.png" type="Texture" id=37]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0025.png" type="Texture" id=38]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0024.png" type="Texture" id=39]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0026.png" type="Texture" id=40]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0027.png" type="Texture" id=41]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0028.png" type="Texture" id=42]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0030.png" type="Texture" id=43]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0029.png" type="Texture" id=44]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0032.png" type="Texture" id=45]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0031.png" type="Texture" id=46]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0033.png" type="Texture" id=47]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0034.png" type="Texture" id=48]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0035.png" type="Texture" id=49]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0036.png" type="Texture" id=50]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0037.png" type="Texture" id=51]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0038.png" type="Texture" id=52]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0040.png" type="Texture" id=53]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0042.png" type="Texture" id=54]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0044.png" type="Texture" id=55]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0046.png" type="Texture" id=56]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0045.png" type="Texture" id=57]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0048.png" type="Texture" id=58]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0051.png" type="Texture" id=59]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0052.png" type="Texture" id=60]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0053.png" type="Texture" id=61]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0054.png" type="Texture" id=62]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0056.png" type="Texture" id=63]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0055.png" type="Texture" id=64]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0057.png" type="Texture" id=65]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0059.png" type="Texture" id=66]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0058.png" type="Texture" id=67]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0008.png" type="Texture" id=68]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0009.png" type="Texture" id=69]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0010.png" type="Texture" id=70]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0012.png" type="Texture" id=71]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0011.png" type="Texture" id=72]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0014.png" type="Texture" id=73]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0013.png" type="Texture" id=74]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0016.png" type="Texture" id=75]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0017.png" type="Texture" id=76]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0015.png" type="Texture" id=77]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0039.png" type="Texture" id=78]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0041.png" type="Texture" id=79]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0043.png" type="Texture" id=80]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0047.png" type="Texture" id=81]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0050.png" type="Texture" id=82]
+[ext_resource path="res://gfx/enemies/sniper/magic/magic0049.png" type="Texture" id=83]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0015.png" type="Texture" id=84]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0012.png" type="Texture" id=85]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0013.png" type="Texture" id=86]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0011.png" type="Texture" id=87]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0014.png" type="Texture" id=88]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0018.png" type="Texture" id=89]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0017.png" type="Texture" id=90]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0020.png" type="Texture" id=91]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0019.png" type="Texture" id=92]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0016.png" type="Texture" id=93]
+[ext_resource path="res://gfx/enemies/sniper/shoot/shoot0021.png" type="Texture" id=94]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 213.5
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 13 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 87 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 88 ), ExtResource( 84 ), ExtResource( 93 ), ExtResource( 90 ), ExtResource( 89 ), ExtResource( 92 ), ExtResource( 91 ), ExtResource( 94 ) ],
+"loop": false,
+"name": "shoot",
+"speed": 30.0
+}, {
+"frames": [ ExtResource( 28 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 27 ), ExtResource( 26 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 72 ), ExtResource( 71 ), ExtResource( 74 ), ExtResource( 73 ), ExtResource( 77 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 33 ), ExtResource( 32 ), ExtResource( 35 ), ExtResource( 34 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 39 ), ExtResource( 38 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 44 ), ExtResource( 43 ), ExtResource( 46 ), ExtResource( 45 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 78 ), ExtResource( 53 ), ExtResource( 79 ), ExtResource( 54 ), ExtResource( 80 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 56 ), ExtResource( 81 ), ExtResource( 58 ), ExtResource( 83 ), ExtResource( 82 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 64 ), ExtResource( 63 ), ExtResource( 65 ), ExtResource( 67 ), ExtResource( 66 ) ],
+"loop": true,
+"name": "magic",
+"speed": 30.0
+} ]
+
+[sub_resource type="CanvasItemMaterial" id=3]
 blend_mode = 1
 
 [node name="Sniper" type="KinematicBody2D" groups=[
@@ -28,10 +129,11 @@ Bullet = ExtResource( 5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 239.627, -24.8875 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 263.583, -49.6233 )
 rotation = 1.5708
-texture = ExtResource( 1 )
+scale = Vector2( 1.8, 1.8 )
+frames = SubResource( 2 )
 
 [node name="LaserSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
@@ -39,16 +141,15 @@ stream = ExtResource( 4 )
 [node name="BarrelPos" type="Position2D" parent="."]
 position = Vector2( 493.825, 34.6535 )
 
-[node name="ReloadTimer" type="Timer" parent="."]
-
 [node name="BossBar" parent="." instance=ExtResource( 3 )]
 
 [node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+margin_right = 225.0
+margin_bottom = 75.0
 rect_scale = Vector2( 5, 5 )
 custom_fonts/font = ExtResource( 6 )
-text = "STATE"
+text = "0
+"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -57,10 +158,10 @@ __meta__ = {
 script = ExtResource( 7 )
 
 [node name="Verse0" type="Node" parent="StateMachine"]
-script = ExtResource( 9 )
+script = ExtResource( 11 )
 
 [node name="Spawner0" type="Node" parent="StateMachine"]
-script = ExtResource( 8 )
+script = ExtResource( 12 )
 
 [node name="Verse0Angry" type="Node" parent="StateMachine"]
 script = ExtResource( 9 )
@@ -69,8 +170,8 @@ script = ExtResource( 9 )
 script = ExtResource( 8 )
 
 [node name="Shield" type="Sprite" parent="."]
-visible = false
 modulate = Color( 0.0117647, 0.670588, 0.992157, 1 )
-material = SubResource( 2 )
+material = SubResource( 3 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 10 )
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

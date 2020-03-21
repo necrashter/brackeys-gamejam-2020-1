@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=2]
+[gd_scene load_steps=121 format=2]
 
 [ext_resource path="res://gfx/enemies/holizard/idle/0015.png" type="Texture" id=1]
 [ext_resource path="res://gfx/enemies/holizard/idle/0023.png" type="Texture" id=2]
@@ -115,7 +115,6 @@
 [ext_resource path="res://sfx/holizard_idle.wav" type="AudioStream" id=113]
 [ext_resource path="res://sfx/holizard_pain.wav" type="AudioStream" id=114]
 [ext_resource path="res://gfx/shadow512.png" type="Texture" id=115]
-[ext_resource path="res://font/OdibeeSans-Regular.ttf" type="DynamicFontData" id=116]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -148,10 +147,6 @@ radius = 33.1326
 [sub_resource type="CircleShape2D" id=5]
 radius = 50.0
 
-[sub_resource type="DynamicFont" id=6]
-size = 40
-font_data = ExtResource( 116 )
-
 [node name="Holizard" type="KinematicBody2D" groups=[
 "fragile",
 "pushable",
@@ -171,7 +166,7 @@ rotation = 1.39626
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 1 )
 animation = "attack"
-frame = 11
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -217,18 +212,6 @@ stream = ExtResource( 114 )
 position = Vector2( -55.2841, -0.726036 )
 rotation = -0.158825
 rect = Rect2( -10, -10, 110, 40 )
-
-[node name="Label" type="Label" parent="."]
-margin_left = -53.0
-margin_top = -50.0
-margin_right = 32.0
-margin_bottom = -27.0
-rect_rotation = -9.4
-custom_fonts/font = SubResource( 6 )
-text = "test"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 0.2
