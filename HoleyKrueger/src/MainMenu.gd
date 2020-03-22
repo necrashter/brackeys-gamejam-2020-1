@@ -1,9 +1,13 @@
 extends CanvasLayer
 
+#Allows portal access
+var player; 
+
 var take_damage_map;
 var hit_damage_map;
 
 const Level = preload("res://src/map/ProceduralCombined.tscn")
+const Tutorial = preload("res://src/map/Tutorial.tscn")
 
 func _ready():
 	take_damage_map = {
@@ -12,10 +16,11 @@ func _ready():
 		"normal": 1.0
 	}
 	hit_damage_map = {
-		"casual": 2.0,
-		"easy": 1.5,
+		"casual": 1.5,
+		"easy": 1.25,
 		"normal": 1.0,
 	}
+	player = null;
 
 func set_difficulty(difficulty):
 	var globals = get_node("/root/global")
@@ -49,4 +54,17 @@ func _on_QuitButton_pressed():
 
 
 func _on_Fade_animation_finished(anim_name):
-	start_game()
+	if anim_name == "fade":
+		start_game()
+	else:
+		get_node("/root/global").jump_scene(Tutorial)
+
+
+func _on_TutorialButton_pressed():
+	$ColorRect.visible = true
+	$ColorRect/Fade.play("tutFade")
+
+
+func _on_CreditsButton_pressed():
+	get_node("/root/global").postCredits = load("res://src/MainMenu.tscn")
+	get_node("/root/global").jump_scene(load("res://src/Credits.tscn"))

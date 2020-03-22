@@ -147,6 +147,7 @@ func _on_Sense_body_exited(body):
 
 func _on_VisibilityNotifier2D_screen_entered():
 	set_process(true)
+	set_physics_process(true)
 	set_process_internal(true)
 	for c in get_children():
 		c.set_process(true)
@@ -155,6 +156,7 @@ func _on_VisibilityNotifier2D_screen_entered():
 
 func _on_VisibilityNotifier2D_screen_exited():
 	set_process(false)
+	set_physics_process(false)
 	set_process_internal(false)
 	for c in get_children():
 		c.set_process(false)

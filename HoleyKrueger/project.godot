@@ -17,6 +17,8 @@ _global_script_class_icons={
 
 config/name="HoleyKrueger"
 run/main_scene="res://src/MainMenu.tscn"
+boot_splash/image="res://gfx/logo.png"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -25,6 +27,8 @@ global="*res://global.gd"
 
 [display]
 
+window/size/width=1280
+window/size/height=720
 window/size/fullscreen=true
 
 [input]

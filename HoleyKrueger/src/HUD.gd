@@ -25,6 +25,8 @@ func update_kills(kills):
 	
 func message(text):
 	$BottomLabel.text = text
+	$Panel.visible = true;
 
 func clear_message():
 	$BottomLabel.text = ""
+	$Panel.visible = false;

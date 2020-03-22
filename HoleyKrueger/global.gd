@@ -7,6 +7,8 @@ var take_damage_mul = 1.0;
 # the damage the player will deliver will be multiplied by this
 var hit_damage_mul = 1.0;
 
+var postCredits;
+
 func _ready():
 		var root = get_tree().get_root()
 		current_scene = root.get_child(root.get_child_count() -1)
@@ -39,8 +41,8 @@ func _deferred_goto_scene(Scene):
 	current_scene = Scene.instance()
 	current_scene.player =player;
 	# Add it to the active scene, as child of root.
-	get_tree().set_current_scene(current_scene)
 	get_tree().get_root().add_child(current_scene)
+	get_tree().set_current_scene(current_scene)
 
 
 func _deferred_jump_scene(Scene):
@@ -51,5 +53,5 @@ func _deferred_jump_scene(Scene):
 	# Instance the new scene.
 	current_scene = Scene.instance()
 	# Add it to the active scene, as child of root.
-	get_tree().set_current_scene(current_scene)
 	get_tree().get_root().add_child(current_scene)
+	get_tree().set_current_scene(current_scene)

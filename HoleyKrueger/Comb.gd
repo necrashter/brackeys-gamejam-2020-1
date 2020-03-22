@@ -72,7 +72,6 @@ func can_dig(pos):
 
 
 func box_broken(position):
-	print("boxbroken")
 	var entity = (Bandage if randi()%2==0 else Pistol).instance();
 	entity.position = position
 	if in_underground:

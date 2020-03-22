@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://font/Grenze-ExtraLight.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://font/Grenze-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://src/Credits.gd" type="Script" id=3]
+[ext_resource path="res://src/HUD_font.tres" type="DynamicFont" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "CreditsRoll"
+length = 24.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("RichTextLabel:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 24 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 60, 600 ), Vector2( 60, -1500 ) ]
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 60.0
+margin_top = 480.0
+margin_right = -60.0
+margin_bottom = 4080.01
+custom_fonts/bold_font = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center][img=512]gfx/logo.png[/img]
+[b]A game by[/b][/center]
+	[b]necrashter[/b] 
+	Programming, Graphics, Animation, Music
+	[b]mcan1999[/b] 
+	Programming, Level Design
+	[b]Dj-Polyester[/b] 
+	Graphics
+
+[center][b]Thanks to[/b][/center]
+	spacehead (for Sci-Fi models .blend)
+	Warlock's Gauntlet artists - rAum, jackFlower, DrZoliparia, Neil2D (for tree sprite)
+	cabled_mess (for coin sound)
+	Bird_man (for gun shot sound)
+	AlineAudio (for grunt sound)
+	Dmgrinder (for creature screeching sound )
+	JuandreSound (for digging sound)
+	nioczkus (for reload sound)
+	You (for playing)"
+text = "
+A game by
+	necrashter 
+	Programming, Graphics, Animation, Music
+	mcan1999 
+	Programming, Level Design
+	Dj-Polyester 
+	Graphics
+
+Thanks to
+	spacehead (for Sci-Fi models .blend)
+	Warlock's Gauntlet artists - rAum, jackFlower, DrZoliparia, Neil2D (for tree sprite)
+	cabled_mess (for coin sound)
+	Bird_man (for gun shot sound)
+	AlineAudio (for grunt sound)
+	Dmgrinder (for creature screeching sound )
+	JuandreSound (for digging sound)
+	nioczkus (for reload sound)
+	You (for playing)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/CreditsRoll = SubResource( 3 )
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -86.8281
+margin_top = -57.1626
+margin_right = -19.8281
+margin_bottom = -15.1626
+custom_fonts/font = ExtResource( 4 )
+text = "SKIP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="pressed" from="Button" to="." method="skip"]

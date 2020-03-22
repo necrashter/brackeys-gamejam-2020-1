@@ -27,7 +27,7 @@ func _ready():
 	$PlayerPos.position = random_pos_outside(rooms)
 	$Portal.next_scene = load("res://src/map/BossArenaSniper.tscn")
 	#$Portal.position = random_pos_outside(rooms)
-	$Portal.portal_name = "SNIPER BOSS ARENA"
+	$Portal.portal_name = "NEXT LEVEL"
 
 func make_room(room):
 	for i in range(room.size.x):

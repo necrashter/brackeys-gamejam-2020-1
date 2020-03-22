@@ -16,11 +16,9 @@ func _ready():
 				$ShadowTiles.set_cell(x,y,0);
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 func endBoss():
-	pass
+	$AnimationPlayer.play("end")
+	get_parent().get_node("AnimationPlayer").play("end")
 
 func beginBoss():
 	battle_started = true
@@ -39,7 +37,7 @@ func beginBoss():
 
 func switchPhase():
 	$BossMusic.volume_db = -80
-	$BossMusic2.volume_db = 0
+	$BossMusic2.volume_db = -5
 	# set sniper.music = $BossMusic2 ?
 
 func spawn_holizard(pos, target ):

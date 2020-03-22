@@ -1,10 +1,26 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/map/BossArenaSniperOverground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/map/BossArenaSniper.gd" type="Script" id=2]
 [ext_resource path="res://src/map/MapBorders.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/map/BossArenaSniperUnderground.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/map/Hole.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "end"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
 
 [node name="Combined" type="Node2D"]
 script = ExtResource( 2 )
@@ -14,3 +30,7 @@ UnderGround = ExtResource( 4 )
 Hole = ExtResource( 6 )
 
 [node name="MapBorders" parent="." instance=ExtResource( 3 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/end = SubResource( 1 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

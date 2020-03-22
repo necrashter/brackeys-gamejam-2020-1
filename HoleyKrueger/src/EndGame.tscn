@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/HUD_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://font/OdibeeSans-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://gfx/logo.png" type="Texture" id=3]
+[ext_resource path="res://src/EndGame.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -480.0
+margin_right = 480.0
+margin_bottom = 334.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -246.5
+margin_top = 334.0
+margin_right = 246.5
+margin_bottom = 145.0
+custom_fonts/font = SubResource( 1 )
+text = "YOU WON!
+THANKS FOR PLAYING"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -102.0
+margin_top = -65.9873
+margin_right = 102.452
+margin_bottom = -23.9873
+custom_fonts/font = ExtResource( 1 )
+text = "Back To Main Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

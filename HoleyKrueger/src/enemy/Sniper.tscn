@@ -1,10 +1,9 @@
-[gd_scene load_steps=97 format=2]
+[gd_scene load_steps=96 format=2]
 
 [ext_resource path="res://src/enemy/Sniper.gd" type="Script" id=2]
 [ext_resource path="res://src/BossBar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://sfx/laser.wav" type="AudioStream" id=4]
 [ext_resource path="res://src/Bullet.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/HUD_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://src/enemy/StateMachine.gd" type="Script" id=7]
 [ext_resource path="res://src/enemy/Spawner0Angry.gd" type="Script" id=8]
 [ext_resource path="res://src/enemy/Verse0angry.gd" type="Script" id=9]
@@ -142,17 +141,6 @@ stream = ExtResource( 4 )
 position = Vector2( 493.825, 34.6535 )
 
 [node name="BossBar" parent="." instance=ExtResource( 3 )]
-
-[node name="Label" type="Label" parent="."]
-margin_right = 225.0
-margin_bottom = 75.0
-rect_scale = Vector2( 5, 5 )
-custom_fonts/font = ExtResource( 6 )
-text = "0
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 7 )

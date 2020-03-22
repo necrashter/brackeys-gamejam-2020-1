@@ -17,7 +17,6 @@ var bulletNo=constBulletNumber;
 
 var phase=1;
 var target = null;
-var state = "fire";
 
 var target_rotation = 0;
 const turn_speed = 2*PI;
@@ -31,7 +30,6 @@ var music;
 
 func next_phase():
 	phase=2;
-	$Label.text = "PHASE 2 BOSS"
 	$StateMachine.phase_up()
 
 
@@ -125,7 +123,6 @@ func _physics_process(delta):
 		look_at(target.get_ref().get_next_position(distance_between))
 		# a timer might be more appropriate for this
 		var time = music.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
-		#$Label.text = str(time);
 		$StateMachine.update(time);
 	velocity = move_and_slide(velocity)
 	velocity *= delta*55
