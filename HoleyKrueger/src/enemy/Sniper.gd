@@ -50,7 +50,7 @@ func get_hit(dmg):
 func _ready():
 	# boss will know the player position at all times
 	# you will need to check if player is valid, so that game doesn't crash when player dies.
-	target = weakref( get_tree().get_current_scene().player.get_node("PlayerBody") );
+	target = weakref( get_node("/root/Combined").player.get_node("PlayerBody") );
 	$BossBar.set_value(hp)
 	target.get_ref().desiredZoom = 2.0;
 
@@ -63,11 +63,11 @@ func reshield():
 	$Shield.visible =true
 
 func teleport ():
-	if(get_tree().get_current_scene().player.get_node("PlayerBody").position.y> 1000 ):
+	if(get_node("/root/Combined").player.get_node("PlayerBody").position.y> 1000 ):
 		position.y=300;
 	else:
 		position.y=1700;
-	if(get_tree().get_current_scene().player.get_node("PlayerBody").position.x> 0):
+	if(get_node("/root/Combined").player.get_node("PlayerBody").position.x> 0):
 		position.x=-1700;
 	else: 
 		position.x=1700;
@@ -127,8 +127,6 @@ func _physics_process(delta):
 		var time = music.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
 		#$Label.text = str(time);
 		$StateMachine.update(time);
-		#if x%40==0:
-		#	if  abs(position.y-get_tree().get_current_scene().player.get_node("PlayerBody").position.y)<=200 or abs(position.x-get_tree().get_current_scene().player.get_node("PlayerBody") .position.x)<=400 :
 	velocity = move_and_slide(velocity)
 	velocity *= delta*55
 		

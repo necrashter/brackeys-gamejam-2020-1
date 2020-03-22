@@ -101,7 +101,7 @@ func _physics_process(delta):
 		if next_scene:
 			get_node("/root/global").goto_scene(next_scene)
 		elif nearby_holes>0:
-			get_tree().get_current_scene().change_scene();
+			get_node("/root/Combined").change_scene();
 
 func select_spade():
 	hands = "spade"
