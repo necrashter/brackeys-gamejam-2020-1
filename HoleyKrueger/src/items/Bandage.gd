@@ -19,4 +19,5 @@ func _ready():
 func _on_Bandage_body_entered(body):
 	if body.is_in_group("zombie_meat"):
 		body.give_hp(10)
+		body.play_powerup()
 		queue_free()

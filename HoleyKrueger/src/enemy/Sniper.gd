@@ -5,7 +5,7 @@ signal die;
 export var hp=300;
 export var shieldHp=15;
 export var constBulletNumber=3;
-export var phase2Hp=125;
+export var phase2Hp=160;
 export var finalHp=10;
 
 export (PackedScene) var Bullet;

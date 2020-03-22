@@ -1,9 +1,10 @@
 extends Area2D
 
 
-const damage = 5;
+var damage = 5;
 var speed = 4000;
 var velocity = Vector2();
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity.x = speed;

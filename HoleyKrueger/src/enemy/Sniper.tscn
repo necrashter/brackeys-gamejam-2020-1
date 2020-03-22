@@ -170,6 +170,7 @@ script = ExtResource( 9 )
 script = ExtResource( 8 )
 
 [node name="Shield" type="Sprite" parent="."]
+visible = false
 modulate = Color( 0.0117647, 0.670588, 0.992157, 1 )
 material = SubResource( 3 )
 scale = Vector2( 3, 3 )

@@ -29,12 +29,18 @@ var next_scene;
 
 var desiredZoom=1.0;
 
+var take_damage_mul = 1.0;
+var hit_damage_mul = 1.0;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Camera2D.force_update_scroll()
 	$Camera2D.position= Vector2(0,0)
 	velocity = Vector2();
 	acceleration = Vector2();
+	var globals = get_node("/root/global")
+	take_damage_mul = globals.take_damage_mul
+	hit_damage_mul = globals.hit_damage_mul
 	select_spade()
 
 func _process(delta):
@@ -130,7 +136,7 @@ func spade_melee():
 			if body == self:
 				continue
 			if body.is_in_group("fragile"):
-				body.get_hit(spade_damage)
+				body.get_hit(spade_damage*hit_damage_mul)
 			if body.is_in_group("pushable"):
 				var vec = body.position - position;
 				body.push(vec.normalized() * push_force)
@@ -155,6 +161,7 @@ func shoot_bullet():
 	$AnimComplex/Handgun/Muzzle/AnimationPlayer.play("muzzle")
 	$ShootSound.play()
 	var bullet = Bullet.instance();
+	bullet.damage *= hit_damage_mul;
 	bullet.shoot($AnimComplex/Handgun/Position2D.get_global_transform().get_origin(), rotation)
 	get_tree().get_root().add_child(bullet);
 	handgun_shoot_finished = false
@@ -162,7 +169,7 @@ func shoot_bullet():
 	$HUD.update_ammo(handgun_ammo, ammo);
 
 func get_hit(dmg):
-	hp -= dmg;
+	hp -= dmg*take_damage_mul;
 	$HUD.update_health(hp)
 	$GruntSound.play()
 	if hp <= 0:
@@ -202,3 +209,6 @@ func portal_enter(next, portal_name):
 func portal_exit(next, portal_name):
 	next_scene = null
 	$HUD.clear_message()
+
+func play_powerup():
+	$PowerUpSound.play()

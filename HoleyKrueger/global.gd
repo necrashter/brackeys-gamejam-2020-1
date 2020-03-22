@@ -1,11 +1,18 @@
 extends Node
 
-
 var current_scene = null
+
+# the damage taken by the player will be multiplied by this
+var take_damage_mul = 1.0;
+# the damage the player will deliver will be multiplied by this
+var hit_damage_mul = 1.0;
 
 func _ready():
 		var root = get_tree().get_root()
 		current_scene = root.get_child(root.get_child_count() -1)
+
+func jump_scene(Scene):
+	call_deferred("_deferred_jump_scene", Scene)
 
 func goto_scene(Scene):
 	# This function will usually be called from a signal callback,
@@ -32,7 +39,17 @@ func _deferred_goto_scene(Scene):
 	current_scene = Scene.instance()
 	current_scene.player =player;
 	# Add it to the active scene, as child of root.
+	get_tree().set_current_scene(current_scene)
 	get_tree().get_root().add_child(current_scene)
 
-	# Optional, to make it compatible with the SceneTree.change_scene() API.
+
+func _deferred_jump_scene(Scene):
+	# Immediately free the current scene,
+	# there is no risk here.
+	current_scene.free()
+	
+	# Instance the new scene.
+	current_scene = Scene.instance()
+	# Add it to the active scene, as child of root.
 	get_tree().set_current_scene(current_scene)
+	get_tree().get_root().add_child(current_scene)

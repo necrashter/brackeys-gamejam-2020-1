@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="HoleyKrueger"
-run/main_scene="res://src/map/ProceduralCombined.tscn"
+run/main_scene="res://src/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -90,6 +90,8 @@ go_up={
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
+environment/default_clear_color=Color( 0.243137, 0.243137, 0.27451, 1 )
 environment/default_environment="res://default_env.tres"
