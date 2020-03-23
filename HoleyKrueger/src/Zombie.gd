@@ -16,6 +16,7 @@ var victim;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity.x = speed;
+	_on_VisibilityNotifier2D_screen_exited()
 	#start_wander()
 	
 func _enter_tree():
